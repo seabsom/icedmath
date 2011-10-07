@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="horizontal"
+  android:layout_height="fill_parent" android:layout_width="fill_parent">
+    <RelativeLayout android:id="@+id/relativeLayout1" android:layout_height="fill_parent" android:layout_width="fill_parent">
+        <ImageView android:layout_width="wrap_content" android:id="@+id/imageView1" android:src="@drawable/menu" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_centerHorizontal="true"></ImageView>
+        <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_below="@+id/Extras" android:layout_alignLeft="@+id/Extras" android:id="@+id/Ayuda" android:text="@string/lblAyuda"></Button>
+        <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_below="@+id/Ayuda" android:layout_alignLeft="@+id/Ayuda" android:id="@+id/AcercaDe" android:text="@string/lblAcercaDe"></Button>
+        <Button android:id="@+id/PuntuacionesAltas" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_below="@+id/ModoLibre" android:layout_alignLeft="@+id/ModoLibre" android:text="@string/lblPuntuacionesAltas"></Button>
+        <Button android:text="@string/lblModoLibre" android:id="@+id/ModoLibre" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_below="@+id/Aventura" android:layout_alignLeft="@+id/Aventura"></Button>
+        <Button android:text="@string/lblExtras" android:id="@+id/Extras" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_above="@+id/ModoLibre" android:layout_toRightOf="@+id/PuntuacionesAltas"></Button>
+        <Button android:text="@string/lblAventura" android:id="@+id/Aventura" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_centerVertical="true" android:layout_alignParentLeft="true" android:layout_marginLeft="58dp"></Button>
+    </RelativeLayout>
+    
+</LinearLayout>
