@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" android:background="@drawable/menu">
+    <RelativeLayout android:layout_width="fill_parent" android:id="@+id/relativeLayout1" android:layout_height="fill_parent">
+        <Button android:id="@+id/Ayuda" android:background="@drawable/ayuda" android:layout_alignBaseline="@+id/ModoLibre" android:layout_height="wrap_content" android:text=" " android:layout_alignLeft="@+id/Extras" android:layout_width="wrap_content" android:layout_alignBottom="@+id/ModoLibre"></Button>
+        <Button android:id="@+id/AcercaDe" android:background="@drawable/acercade" android:layout_height="wrap_content" android:text=" " android:layout_width="wrap_content" android:layout_alignParentBottom="true" android:layout_alignParentRight="true"></Button>
+        <Button android:id="@+id/PuntuacionesAltas" android:background="@drawable/puntuacionesaltas" android:layout_height="wrap_content" android:text=" " android:layout_width="wrap_content" android:layout_alignParentBottom="true" android:layout_alignParentLeft="true"></Button>
+        <Button android:id="@+id/Extras" android:background="@drawable/extras" android:layout_height="wrap_content" android:text=" " android:layout_alignParentTop="true" android:layout_width="wrap_content" android:layout_alignParentRight="true"></Button>
+        <Button android:id="@+id/Aventura" android:background="@drawable/aventura" android:layout_height="wrap_content" android:text=" " android:layout_alignParentTop="true" android:layout_width="wrap_content" android:layout_alignParentLeft="true"></Button>
+        <Button android:id="@+id/ModoLibre" android:background="@drawable/modolibre" android:layout_height="wrap_content" android:text=" " android:layout_width="wrap_content" android:layout_centerVertical="true" android:layout_alignParentLeft="true"></Button>
+    </RelativeLayout>
+</LinearLayout>
