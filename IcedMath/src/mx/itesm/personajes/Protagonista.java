@@ -1,13 +1,17 @@
 package mx.itesm.personajes;
 
 import android.content.Context;
+import mx.itesm.menus.R;
 import mx.itesm.menus.Sprite;
 
 public class Protagonista extends Personaje {
 
-	public Protagonista(Context contexto, Sprite nuevoSprite,
-			Posicion nuevaPosicion) {
-		super(contexto, nuevoSprite, nuevaPosicion);
+	public Protagonista(Context contexto, Posicion nuevaPosicion) {
+		super(contexto, nuevaPosicion);
+		int[] ids= { R.drawable.normalder, R.drawable.caminaunoder,
+				R.drawable.caminadosder, R.drawable.caminatresder,
+				R.drawable.caminacuatroder, R.drawable.caminacincoder };
+		super.setSprite(new Sprite(getResources(), ids));
 	}
 
 	public void saltar() {

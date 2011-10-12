@@ -12,10 +12,8 @@ public class Personaje extends View {
 	private Sprite sprite;
 	
 
-	public Personaje(Context contexto, Sprite nuevoSprite,
-			Posicion nuevaPosicion) {
+	public Personaje(Context contexto, 	Posicion nuevaPosicion) {
 		super(contexto);
-		sprite = nuevoSprite;
 		posicion = nuevaPosicion;
 	}
 

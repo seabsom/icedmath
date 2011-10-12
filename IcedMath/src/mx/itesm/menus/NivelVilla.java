@@ -24,20 +24,9 @@ public class NivelVilla extends View {
 		super(contexto);
 		paint = new Paint();
 
-		int[] olegCaminando = { R.drawable.normalder, R.drawable.caminaunoder,
-				R.drawable.caminadosder, R.drawable.caminatresder,
-				R.drawable.caminacuatroder, R.drawable.caminacincoder };
-
-		int[] enemigoFlotando = { R.drawable.specteruno, R.drawable.specterdos,
-				R.drawable.spectertres, R.drawable.spectercuatro,
-				R.drawable.spectercinco, R.drawable.specterseis,
-				R.drawable.spectersiete };
-
 		fondo = new Fondo(contexto);
-		oleg = new Protagonista(contexto, new Sprite(getResources(),
-				olegCaminando), new Posicion(50, 215));
-		enemigo = new Enemigo(contexto, new Sprite(getResources(),
-				enemigoFlotando), new Posicion(300, 200));
+		oleg = new Protagonista(contexto, new Posicion(50, 215));
+		enemigo = new Enemigo(contexto, new Posicion(300, 200));
 		derecha = BitmapFactory.decodeResource(getResources(),
 				R.drawable.derecha);
 		izquierda = BitmapFactory.decodeResource(getResources(),
@@ -52,14 +41,17 @@ public class NivelVilla extends View {
 		oleg.dibujar(canvas, paint);
 		enemigo.dibujar(canvas, paint);
 		canvas.drawBitmap(derecha, canvas.getWidth() - derecha.getWidth(),
-				(canvas.getHeight() - derecha.getHeight()) * 2, paint);
+				(canvas.getHeight() - derecha.getHeight()), paint);
 		canvas.drawBitmap(izquierda, 0,
-				(canvas.getHeight() - izquierda.getHeight()) * 2, paint);
+				(canvas.getHeight() - izquierda.getHeight()), paint);
 	}
 
 	public void actualizar() {
 		enemigo.moverse();
 	}
+
+	// Este método se hizo para hacer pruebas con los sprites y para asegurar el
+	// funcionamiento de las clases Enemigo y Protagonista
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
