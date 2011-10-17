@@ -1,5 +1,6 @@
-package mx.itesm.menus;
+package mx.itesm.niveles;
 
+import mx.itesm.menus.R;
 import mx.itesm.personajes.Enemigo;
 import mx.itesm.personajes.Posicion;
 import mx.itesm.personajes.Protagonista;
@@ -19,6 +20,7 @@ public class NivelVilla extends View {
 	private Protagonista oleg;
 	private Bitmap derecha;
 	private Bitmap izquierda;
+	private boolean isPressed;
 
 	public NivelVilla(Context contexto) {
 		super(contexto);
@@ -40,14 +42,18 @@ public class NivelVilla extends View {
 		fondo.dibujar(canvas, paint);
 		oleg.dibujar(canvas, paint);
 		enemigo.dibujar(canvas, paint);
-		canvas.drawBitmap(derecha, canvas.getWidth() - derecha.getWidth(),
-				(canvas.getHeight() - derecha.getHeight()), paint);
 		canvas.drawBitmap(izquierda, 0,
 				(canvas.getHeight() - izquierda.getHeight()), paint);
+		canvas.drawBitmap(derecha, canvas.getWidth() - derecha.getWidth(),
+				(canvas.getHeight() - derecha.getHeight()), paint);
+		
 	}
 
 	public void actualizar() {
 		enemigo.moverse();
+		if(isPressed){
+			oleg.moverse();
+		}
 	}
 
 	// Este método se hizo para hacer pruebas con los sprites y para asegurar el
@@ -55,14 +61,14 @@ public class NivelVilla extends View {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		switch (event.getAction()) {
-		case MotionEvent.ACTION_DOWN:
-			oleg.moverse();
-			break;
-		default:
-			return false;
+		if (event.getAction() == MotionEvent.ACTION_DOWN){
+			isPressed = true;
+			return true;
 		}
-		return true;
+		
+		isPressed = false;
+		return false;
+		
 	}
 
 }

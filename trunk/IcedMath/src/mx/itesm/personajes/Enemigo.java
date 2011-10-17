@@ -1,7 +1,6 @@
 package mx.itesm.personajes;
 
 import mx.itesm.menus.R;
-import mx.itesm.menus.Sprite;
 import android.content.Context;
 
 public class Enemigo extends Personaje {

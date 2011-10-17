@@ -1,5 +1,6 @@
-package mx.itesm.menus;
+package mx.itesm.niveles;
 
+import mx.itesm.menus.R;
 import mx.itesm.personajes.Posicion;
 
 import android.content.Context;

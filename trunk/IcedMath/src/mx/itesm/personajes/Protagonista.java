@@ -2,7 +2,6 @@ package mx.itesm.personajes;
 
 import android.content.Context;
 import mx.itesm.menus.R;
-import mx.itesm.menus.Sprite;
 
 public class Protagonista extends Personaje {
 
@@ -26,7 +25,7 @@ public class Protagonista extends Personaje {
 	@Override
 	public void moverse() {
 		getSprite().nextFrame();
-		getPosicion().x= getPosicion().x+5;
+		getPosicion().x = getPosicion().x+5; //Revisar esta l’nea: se deber’a usar setPosicion... 
 	}
 
 }

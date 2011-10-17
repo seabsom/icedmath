@@ -1,5 +1,6 @@
-package mx.itesm.menus;
+package mx.itesm.niveles;
 
+import mx.itesm.menus.R;
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;

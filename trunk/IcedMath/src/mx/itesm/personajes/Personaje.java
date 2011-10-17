@@ -4,9 +4,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.View;
-import mx.itesm.menus.Sprite;
 
-public class Personaje extends View {
+public class Personaje extends View{
 
 	private Posicion posicion;
 	private Sprite sprite;
@@ -34,7 +33,7 @@ public class Personaje extends View {
 	}
 
 	public void dibujar(Canvas canvas, Paint paint) {
-		sprite.draw(canvas, paint, posicion);
+		sprite.draw(canvas, posicion, paint);
 	}
 
 	public void moverse() {		
