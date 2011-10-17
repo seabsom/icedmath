@@ -1,8 +1,7 @@
-package mx.itesm.menus;
+package mx.itesm.personajes;
 
 import java.util.LinkedList;
 
-import mx.itesm.personajes.Posicion;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -23,7 +22,7 @@ public class Sprite {
 		indice=0;
 	}
 	
-	public void draw(Canvas canvas, Paint p, Posicion posicion){
+	public void draw(Canvas canvas, Posicion posicion, Paint p){
 		canvas.drawBitmap(listaImgs.get(indice), posicion.x, posicion.y, p);
 	}
 	

@@ -6,12 +6,12 @@ public class Posicion {
 	public float y;
 
 	public Posicion() {
-		x = 0;
-		y = 0;
+		this.x = 0;
+		this.y = 0;
 	}
 
-	public Posicion(int nuevoX, int nuevoY) {
-		x = nuevoX;
-		y = nuevoY;
+	public Posicion(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
 }

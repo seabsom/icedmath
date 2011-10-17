@@ -1,5 +1,6 @@
 package mx.itesm.menus;
 
+import mx.itesm.niveles.PantallaNivelVilla;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,8 +25,7 @@ public class MainMenu extends Activity implements OnClickListener {
 
 		((Button) findViewById(R.id.Aventura)).setOnClickListener(this);
 		// ((Button) findViewById(R.id.ModoLibre)).setOnClickListener(this);
-		((Button) findViewById(R.id.PuntuacionesAltas))
-				.setOnClickListener(this);
+		((Button) findViewById(R.id.PuntuacionesAltas)).setOnClickListener(this);
 		((Button) findViewById(R.id.Extras)).setOnClickListener(this);
 		((Button) findViewById(R.id.Ayuda)).setOnClickListener(this);
 		((Button) findViewById(R.id.AcercaDe)).setOnClickListener(this);
