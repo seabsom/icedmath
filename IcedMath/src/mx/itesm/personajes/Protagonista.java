@@ -22,6 +22,8 @@ public class Protagonista extends Personaje {
 				R.drawable.caminados, R.drawable.caminatres,
 				R.drawable.caminacuatro, R.drawable.caminacinco};
 		super.setSprite(new Sprite(getResources(), ids));
+		setX(getX()+4);
+
 	}
 	
 	

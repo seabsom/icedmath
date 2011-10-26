@@ -73,7 +73,6 @@ public class NivelVilla extends View {
 			oleg.moverseAdelante();
 			xp += 20;
 		} else if (izqIsPressed) {
-		//	oleg.setX(new Posicion(oleg.getPosicion().x, oleg.getPosicion().y)));
 			oleg.moverseAtras();
 			xp -= 20;
 		} else {
