@@ -68,7 +68,7 @@ public class NivelVilla extends View {
 	}
 
 	public void actualizar() {
-		
+		enemigo.moverseAdelante();
 		if (derIsPressed) {
 			oleg.moverseAdelante();
 			xp += 20;
