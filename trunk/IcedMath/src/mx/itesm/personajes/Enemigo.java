@@ -15,7 +15,7 @@ public class Enemigo extends Personaje {
 	}
 
 	@Override
-	public void moverse() {
+	public void moverseAdelante() {
 		getSprite().nextFrame();
 	}
 }

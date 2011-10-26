@@ -7,12 +7,24 @@ public class Protagonista extends Personaje {
 
 	public Protagonista(Context contexto, Posicion nuevaPosicion) {
 		super(contexto, nuevaPosicion);
-		int[] ids= { R.drawable.normalder, R.drawable.caminaunoder,
+		spriteNormal();
+	}
+	
+	public void spriteNormal(){
+		int[] ids ={ R.drawable.normalder, R.drawable.caminaunoder,
 				R.drawable.caminadosder, R.drawable.caminatresder,
-				R.drawable.caminacuatroder, R.drawable.caminacincoder };
+				R.drawable.caminacuatroder, R.drawable.caminacincoder};
 		super.setSprite(new Sprite(getResources(), ids));
 	}
-
+	
+	public void voltear(){
+		int[] ids ={ R.drawable.normalizq, R.drawable.caminauno,
+				R.drawable.caminados, R.drawable.caminatres,
+				R.drawable.caminacuatro, R.drawable.caminacinco};
+		super.setSprite(new Sprite(getResources(), ids));
+	}
+	
+	
 	public void saltar() {
 		// TODO Auto-generated method stub
 
@@ -23,9 +35,18 @@ public class Protagonista extends Personaje {
 	}
 
 	@Override
-	public void moverse() {
+	public void moverseAdelante() {
 		getSprite().nextFrame();
-		getPosicion().x = getPosicion().x+5; //Revisar esta l’nea: se deber’a usar setPosicion... 
+		getPosicion().x+= 4; //Revisar esta l’nea: se deber’a usar setPosicion... 
+	}
+	
+	public void moverseAtras() {
+		getSprite().nextFrame();
+		getPosicion().x-= 4; //Revisar esta l’nea: se deber’a usar setPosicion... 
+	}
+	
+	public void pararse(){
+		getSprite().firstFrame();
 	}
 
 }

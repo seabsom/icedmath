@@ -36,7 +36,7 @@ public class Personaje extends View{
 		sprite.draw(canvas, posicion, paint);
 	}
 
-	public void moverse() {		
+	public void moverseAdelante() {		
 	}
 
 	public void morir() {

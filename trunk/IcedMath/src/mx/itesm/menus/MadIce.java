@@ -8,7 +8,7 @@ import android.view.WindowManager;
 
 public class MadIce extends Activity {
 
-	private static int SPLASH_TIME = 3000; // tiempo a mostrar Activity en ms
+	private static int SPLASH_TIME = 100; // tiempo a mostrar Activity en ms
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
