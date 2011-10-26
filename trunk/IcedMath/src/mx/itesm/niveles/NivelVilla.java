@@ -2,7 +2,6 @@ package mx.itesm.niveles;
 
 import mx.itesm.menus.R;
 import mx.itesm.personajes.Enemigo;
-import mx.itesm.personajes.Posicion;
 import mx.itesm.personajes.Protagonista;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -20,8 +19,8 @@ public class NivelVilla extends View {
 	private Protagonista oleg;
 	private Bitmap derecha;
 	private Bitmap izquierda;
-	private boolean derisPressed;
-	private boolean izqisPressed;
+	private boolean derIsPressed;
+	private boolean izqIsPressed;
 	private int xd, xp, offset;
 
 	public NivelVilla(Context contexto) {
@@ -29,8 +28,8 @@ public class NivelVilla extends View {
 		paint = new Paint();
 		fondo = new Fondo(contexto);
 		xp = 0;
-		oleg = new Protagonista(contexto, new Posicion(xd, 215));
-		enemigo = new Enemigo(contexto, new Posicion(500, 200));
+		oleg = new Protagonista(contexto, xd, 215);
+		enemigo = new Enemigo(contexto, 500, 200);
 		derecha = BitmapFactory.decodeResource(getResources(),
 				R.drawable.derecha);
 		izquierda = BitmapFactory.decodeResource(getResources(),
@@ -69,11 +68,12 @@ public class NivelVilla extends View {
 	}
 
 	public void actualizar() {
-		enemigo.moverseAdelante();
-		if (derisPressed) {
+		
+		if (derIsPressed) {
 			oleg.moverseAdelante();
 			xp += 20;
-		} else if (izqisPressed) {
+		} else if (izqIsPressed) {
+		//	oleg.setX(new Posicion(oleg.getPosicion().x, oleg.getPosicion().y)));
 			oleg.moverseAtras();
 			xp -= 20;
 		} else {
@@ -81,15 +81,15 @@ public class NivelVilla extends View {
 		}
 
 		// Verificar choques PENDIENTE; NO FUNCIONA
-
-		if (enemigo.getPosicion().x >= xd - oleg.getWidth()
-				&& enemigo.getPosicion().x <= xd + oleg.getWidth()) {
-			if (enemigo.getPosicion().y >= oleg.getHeight()
-					&& enemigo.getPosicion().y <= oleg.getHeight()
-							- enemigo.getHeight()) {
-				oleg.setPosicion(new Posicion(xd, 215));
-			}
-		}
+//
+//		if (enemigo.getPosicion().x >= xd - oleg.getWidth()
+//				&& enemigo.getPosicion().x <= xd + oleg.getWidth()) {
+//			if (enemigo.getPosicion().y >= oleg.getHeight()
+//					&& enemigo.getPosicion().y <= oleg.getHeight()
+//							- enemigo.getHeight()) {
+//				oleg.setPosicion(new Posicion(xd, 215));
+//			}
+//		}
 	}
 
 	@Override
@@ -100,18 +100,18 @@ public class NivelVilla extends View {
 			if (event.getX() > getWidth() - derecha.getWidth()
 					&& event.getY() > getHeight() - derecha.getHeight()) {
 				oleg.spriteNormal();
-				derisPressed = true;
+				derIsPressed = true;
 
 			} else if (event.getX() < izquierda.getWidth()
 					&& event.getY() > getHeight() - izquierda.getHeight()) {
-				izqisPressed = true;
+				izqIsPressed = true;
 				oleg.voltear();
 
 			}
 			break;
 		default:
-			derisPressed = false;
-			izqisPressed = false;
+			derIsPressed = false;
+			izqIsPressed = false;
 			return false;
 		}
 		return true;

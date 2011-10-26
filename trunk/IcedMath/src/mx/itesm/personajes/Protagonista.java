@@ -5,8 +5,8 @@ import mx.itesm.menus.R;
 
 public class Protagonista extends Personaje {
 
-	public Protagonista(Context contexto, Posicion nuevaPosicion) {
-		super(contexto, nuevaPosicion);
+	public Protagonista(Context contexto, float x, float y) {
+		super(contexto, x, y);
 		spriteNormal();
 	}
 	
@@ -37,12 +37,12 @@ public class Protagonista extends Personaje {
 	@Override
 	public void moverseAdelante() {
 		getSprite().nextFrame();
-		getPosicion().x+= 4; //Revisar esta l’nea: se deber’a usar setPosicion... 
+		setX(getX()+4);
 	}
 	
 	public void moverseAtras() {
 		getSprite().nextFrame();
-		getPosicion().x-= 4; //Revisar esta l’nea: se deber’a usar setPosicion... 
+		setX(getX()-4);
 	}
 	
 	public void pararse(){

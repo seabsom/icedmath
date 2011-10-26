@@ -22,8 +22,8 @@ public class Sprite {
 		indice=0;
 	}
 	
-	public void draw(Canvas canvas, Posicion posicion, Paint p){
-		canvas.drawBitmap(listaImgs.get(indice), posicion.x, posicion.y, p);
+	public void draw(Canvas canvas, float x, float y, Paint p){
+		canvas.drawBitmap(listaImgs.get(indice), x, y, p);
 	}
 	
 	public void nextFrame(){
