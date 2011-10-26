@@ -96,6 +96,7 @@ public class Nivel extends View {
 		switch (event.getAction()) {
 
 		case MotionEvent.ACTION_DOWN:
+			
 			if ((event.getX() > izquierda.getWidth() && event.getX() < 2*izquierda.getWidth())
 					&& event.getY() > (getHeight() - derecha.getHeight())) {
 				oleg.spriteNormal();
