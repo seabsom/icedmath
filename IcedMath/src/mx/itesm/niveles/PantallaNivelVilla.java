@@ -1,8 +1,8 @@
 package mx.itesm.niveles;
 
+import mx.itesm.audio.Musica;
 import mx.itesm.menus.R;
 import android.app.Activity;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
@@ -11,7 +11,7 @@ public class PantallaNivelVilla extends Activity implements Runnable {
 
 	private NivelVilla nivel;
 	private boolean corriendo;
-	private MediaPlayer player;
+	private Musica musica;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,29 +23,16 @@ public class PantallaNivelVilla extends Activity implements Runnable {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
 		nivel = new NivelVilla(this);
-
 		setContentView(nivel);
-		reproducirAudio();
+		musica= new Musica(R.raw.darkskies, this);
+		musica.play();
 
 	}
 
-	private void reproducirAudio() {
-		if (player != null) {
-			player.release();
-		}
-		player = MediaPlayer.create(this, R.raw.darkskies);
-		player.start();
-		player.setLooping(true);
-	}
-
+	
 	@Override
 	protected void onStop() {
-		if (player != null) {
-			if (player.isPlaying()) {
-				player.stop();
-				player.release();
-			}
-		}
+		musica.stop();	
 		corriendo = false;
 		super.onStop();
 	}

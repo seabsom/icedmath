@@ -20,15 +20,17 @@ public class NivelVilla extends View {
 	private Protagonista oleg;
 	private Bitmap derecha;
 	private Bitmap izquierda;
-	private boolean isPressed;
+	private boolean derisPressed;
+	private boolean izqisPressed;
+	private int xd, xp, offset;
 
 	public NivelVilla(Context contexto) {
 		super(contexto);
 		paint = new Paint();
-
 		fondo = new Fondo(contexto);
-		oleg = new Protagonista(contexto, new Posicion(50, 215));
-		enemigo = new Enemigo(contexto, new Posicion(300, 200));
+		xp = 0;
+		oleg = new Protagonista(contexto, new Posicion(xd, 215));
+		enemigo = new Enemigo(contexto, new Posicion(500, 200));
 		derecha = BitmapFactory.decodeResource(getResources(),
 				R.drawable.derecha);
 		izquierda = BitmapFactory.decodeResource(getResources(),
@@ -39,6 +41,8 @@ public class NivelVilla extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
+		calcularXdOffset();
+		canvas.drawBitmap(fondo.getGrafico(), -offset, 0, paint);
 		fondo.dibujar(canvas, paint);
 		oleg.dibujar(canvas, paint);
 		enemigo.dibujar(canvas, paint);
@@ -46,29 +50,71 @@ public class NivelVilla extends View {
 				(canvas.getHeight() - izquierda.getHeight()), paint);
 		canvas.drawBitmap(derecha, canvas.getWidth() - derecha.getWidth(),
 				(canvas.getHeight() - derecha.getHeight()), paint);
-		
+
+	}
+
+	public void calcularXdOffset() {
+		int ancho = getWidth();
+		if (xp < ancho / 2) {
+			xd = xp;
+			offset = 0;
+		} else if (xd > fondo.getWidth() - ancho / 2) {
+			xd = xp - (fondo.getWidth() - ancho);
+			offset = fondo.getWidth() - ancho;
+		} else {
+			xd = ancho / 2;
+			offset = xp - ancho / 2;
+		}
+
 	}
 
 	public void actualizar() {
-		enemigo.moverse();
-		if(isPressed){
-			oleg.moverse();
+		enemigo.moverseAdelante();
+		if (derisPressed) {
+			oleg.moverseAdelante();
+			xp += 20;
+		} else if (izqisPressed) {
+			oleg.moverseAtras();
+			xp -= 20;
+		} else {
+			oleg.pararse();
+		}
+
+		// Verificar choques PENDIENTE; NO FUNCIONA
+
+		if (enemigo.getPosicion().x >= xd - oleg.getWidth()
+				&& enemigo.getPosicion().x <= xd + oleg.getWidth()) {
+			if (enemigo.getPosicion().y >= oleg.getHeight()
+					&& enemigo.getPosicion().y <= oleg.getHeight()
+							- enemigo.getHeight()) {
+				oleg.setPosicion(new Posicion(xd, 215));
+			}
 		}
 	}
 
-	// Este método se hizo para hacer pruebas con los sprites y para asegurar el
-	// funcionamiento de las clases Enemigo y Protagonista
-
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		if (event.getAction() == MotionEvent.ACTION_DOWN){
-			isPressed = true;
-			return true;
+		switch (event.getAction()) {
+
+		case MotionEvent.ACTION_DOWN:
+			if (event.getX() > getWidth() - derecha.getWidth()
+					&& event.getY() > getHeight() - derecha.getHeight()) {
+				oleg.spriteNormal();
+				derisPressed = true;
+
+			} else if (event.getX() < izquierda.getWidth()
+					&& event.getY() > getHeight() - izquierda.getHeight()) {
+				izqisPressed = true;
+				oleg.voltear();
+
+			}
+			break;
+		default:
+			derisPressed = false;
+			izqisPressed = false;
+			return false;
 		}
-		
-		isPressed = false;
-		return false;
-		
+		return true;
 	}
 
 }

@@ -21,6 +21,14 @@ public class Fondo extends View {
 				R.drawable.montanas); // Se deja el fondo fijo
 		posicion = new Posicion();
 	}
+	
+	public Bitmap getGrafico() {
+		return grafico;
+	}
+	
+	public Posicion getPosicion() {
+		return posicion;
+	}
 
 	public void dibujar(Canvas canvas, Paint paint) {
 		canvas.drawBitmap(grafico, posicion.x, posicion.y, paint);

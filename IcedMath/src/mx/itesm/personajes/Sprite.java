@@ -33,5 +33,11 @@ public class Sprite {
 	public void prevFrame(){
 		indice=(indice-1)%listaImgs.size();
 	}
+	
+	public void firstFrame(){
+		indice=0;
+	}
+
+	
 
 }
