@@ -1,8 +1,6 @@
 package mx.itesm.niveles;
 
 import mx.itesm.menus.R;
-import mx.itesm.personajes.Posicion;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,25 +11,39 @@ import android.view.View;
 public class Fondo extends View {
 
 	private Bitmap grafico;
-	private Posicion posicion;
+	private float x;
+	private float y;
 
 	public Fondo(Context contexto) {
 		super(contexto);
 		grafico = BitmapFactory.decodeResource(getResources(),
 				R.drawable.montanas); // Se deja el fondo fijo
-		posicion = new Posicion();
+		this.x = 0;
+		this.y = 0;
 	}
 	
 	public Bitmap getGrafico() {
 		return grafico;
 	}
 	
-	public Posicion getPosicion() {
-		return posicion;
+	public float getX() {
+		return x;
+	}
+
+	public void setX(float x) {
+		this.x = x;
+	}
+
+	public float getY() {
+		return y;
+	}
+
+	public void setY(float y) {
+		this.y = y;
 	}
 
 	public void dibujar(Canvas canvas, Paint paint) {
-		canvas.drawBitmap(grafico, posicion.x, posicion.y, paint);
+		canvas.drawBitmap(grafico, x, y, paint);
 	}
 
 }
