@@ -9,7 +9,7 @@ import android.view.WindowManager;
 
 public class PantallaNivelVilla extends Activity implements Runnable {
 
-	private NivelVilla nivel;
+	private Nivel nivel;
 	private boolean corriendo;
 	private Musica musica;
 
@@ -22,7 +22,7 @@ public class PantallaNivelVilla extends Activity implements Runnable {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
-		nivel = new NivelVilla(this);
+		nivel = new Nivel(this);
 		setContentView(nivel);
 		musica= new Musica(R.raw.darkskies, this);
 		musica.play();

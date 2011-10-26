@@ -11,7 +11,7 @@ import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class NivelVilla extends View {
+public class Nivel extends View {
 
 	private Paint paint;
 	private Fondo fondo;
@@ -23,7 +23,7 @@ public class NivelVilla extends View {
 	private boolean izqIsPressed;
 	private int xd, xp, offset;
 
-	public NivelVilla(Context contexto) {
+	public Nivel(Context contexto) {
 		super(contexto);
 		paint = new Paint();
 		fondo = new Fondo(contexto);
@@ -47,7 +47,7 @@ public class NivelVilla extends View {
 		enemigo.dibujar(canvas, paint);
 		canvas.drawBitmap(izquierda, 0,
 				(canvas.getHeight() - izquierda.getHeight()), paint);
-		canvas.drawBitmap(derecha, canvas.getWidth() - derecha.getWidth(),
+		canvas.drawBitmap(derecha, izquierda.getWidth(),
 				(canvas.getHeight() - derecha.getHeight()), paint);
 
 	}
@@ -96,18 +96,19 @@ public class NivelVilla extends View {
 		switch (event.getAction()) {
 
 		case MotionEvent.ACTION_DOWN:
-			if (event.getX() > getWidth() - derecha.getWidth()
-					&& event.getY() > getHeight() - derecha.getHeight()) {
+			if ((event.getX() > izquierda.getWidth() && event.getX() < 2*izquierda.getWidth())
+					&& event.getY() > (getHeight() - derecha.getHeight())) {
 				oleg.spriteNormal();
 				derIsPressed = true;
-
-			} else if (event.getX() < izquierda.getWidth()
-					&& event.getY() > getHeight() - izquierda.getHeight()) {
-				izqIsPressed = true;
+				
+			}else if (event.getX() < izquierda.getWidth()
+					&& event.getY() > (getHeight() - izquierda.getHeight())) {
 				oleg.voltear();
+				izqIsPressed = true;
 
 			}
 			break;
+		
 		default:
 			derIsPressed = false;
 			izqIsPressed = false;
