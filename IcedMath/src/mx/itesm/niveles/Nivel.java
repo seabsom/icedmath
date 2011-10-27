@@ -22,6 +22,8 @@ public class Nivel extends View {
 	private boolean derIsPressed;
 	private boolean izqIsPressed;
 	private int xd, xp, offset;
+	private Bitmap btnsaltar;
+	private Bitmap btnatacar;
 
 	public Nivel(Context contexto) {
 		super(contexto);
@@ -34,13 +36,18 @@ public class Nivel extends View {
 				R.drawable.derecha);
 		izquierda = BitmapFactory.decodeResource(getResources(),
 				R.drawable.izquierda);
+		btnsaltar= BitmapFactory.decodeResource(getResources(),
+				R.drawable.saltar);
+		btnatacar= BitmapFactory.decodeResource(getResources(),
+				R.drawable.atacar);
+
 
 	}
 
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		calcularXdOffset();
+		calcularXd();
 		canvas.drawBitmap(fondo.getGrafico(), -offset, 0, paint);
 		fondo.dibujar(canvas, paint);
 		oleg.dibujar(canvas, paint);
@@ -49,15 +56,20 @@ public class Nivel extends View {
 				(canvas.getHeight() - izquierda.getHeight()), paint);
 		canvas.drawBitmap(derecha, izquierda.getWidth(),
 				(canvas.getHeight() - derecha.getHeight()), paint);
+		canvas.drawBitmap(btnsaltar, canvas.getWidth() - btnsaltar.getWidth(),
+				(canvas.getHeight() - btnsaltar.getHeight()), paint);
+		canvas.drawBitmap(btnatacar, canvas.getWidth() - 2*(btnatacar.getWidth()),
+				(canvas.getHeight() - derecha.getHeight()), paint);
+
 
 	}
 
-	public void calcularXdOffset() {
+	public void calcularXd() {
 		int ancho = getWidth();
 		if (xp < ancho / 2) {
 			xd = xp;
 			offset = 0;
-		} else if (xd > fondo.getWidth() - ancho / 2) {
+		} else if (xp > fondo.getWidth() - ancho / 2) {
 			xd = xp - (fondo.getWidth() - ancho);
 			offset = fondo.getWidth() - ancho;
 		} else {
