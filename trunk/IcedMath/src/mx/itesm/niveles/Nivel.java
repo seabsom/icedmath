@@ -14,7 +14,7 @@ import android.view.View;
 public class Nivel extends View {
 
 	private Paint paint;
-	private Fondo fondo;
+	private Bitmap fondo;
 	private Enemigo enemigo;
 	private Protagonista oleg;
 	private Bitmap derecha;
@@ -28,7 +28,8 @@ public class Nivel extends View {
 	public Nivel(Context contexto) {
 		super(contexto);
 		paint = new Paint();
-		fondo = new Fondo(contexto);
+		fondo = BitmapFactory.decodeResource(getResources(),
+				R.drawable.montanas);
 		xp = 0;
 		oleg = new Protagonista(contexto, xd, 215);
 		enemigo = new Enemigo(contexto, 500, 200);
@@ -48,8 +49,7 @@ public class Nivel extends View {
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		calcularXd();
-		canvas.drawBitmap(fondo.getGrafico(), -offset, 0, paint);
-		fondo.dibujar(canvas, paint);
+		canvas.drawBitmap(fondo, -offset, 0, paint);
 		oleg.dibujar(canvas, paint);
 		enemigo.dibujar(canvas, paint);
 		canvas.drawBitmap(izquierda, 0,
@@ -64,6 +64,7 @@ public class Nivel extends View {
 
 	}
 
+	//MODIFICALA!!!
 	public void calcularXd() {
 		int ancho = getWidth();
 		if (xp < ancho / 2) {
@@ -83,10 +84,10 @@ public class Nivel extends View {
 		enemigo.moverseAdelante();
 		if (derIsPressed) {
 			oleg.moverseAdelante();
-			xp += 20;
+			xp += 4;
 		} else if (izqIsPressed) {
 			oleg.moverseAtras();
-			xp -= 20;
+			xp -= 4;
 		} else {
 			oleg.pararse();
 		}
