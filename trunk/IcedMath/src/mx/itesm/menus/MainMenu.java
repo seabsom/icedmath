@@ -4,11 +4,13 @@ import mx.itesm.niveles.PantallaNivelVilla;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+
 
 public class MainMenu extends Activity implements OnClickListener {
 
@@ -37,6 +39,7 @@ public class MainMenu extends Activity implements OnClickListener {
 		Intent intencion;
 		switch (v.getId()) {
 		case R.id.Aventura:
+			
 			intencion = new Intent(this, PantallaNivelVilla.class);
 			startActivity(intencion);
 			break;
@@ -64,5 +67,13 @@ public class MainMenu extends Activity implements OnClickListener {
 			break;
 		}
 
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode==KeyEvent.KEYCODE_BACK){
+			super.onDestroy();
+		}
+		return true;
 	}
 }

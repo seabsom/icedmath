@@ -22,17 +22,18 @@ public class Acelerometro extends Activity {
 	private float aceleracionAnteriorY;
 	private float aceleracionAnteriorZ;
 
-	// Nis dice si es el primer "shake"
+	// Nos dice si es el primer "shake"
 	private boolean primerShake = true;
 
 	// Se guarda el delta de aceleración que representa un movimiento rápido
 	private final float deltaAceleracionShake = 1.5f;
 
 	// Se ha iniciado un "shake"
-	private boolean inicioShake = false;
+	private boolean inicioShake = false;	
+	
 
 	// Se inicializa un listener de eventos de sensores
-	private final SensorEventListener mySensorEventListener = new SensorEventListener() {
+	private final SensorEventListener listener = new SensorEventListener() {
 
 		public void onSensorChanged(SensorEvent se) {
 			actualizarParametrosAcelerometro(se.values[0], se.values[1],
@@ -59,7 +60,7 @@ public class Acelerometro extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		adminSensores = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-		adminSensores.registerListener(mySensorEventListener,
+		adminSensores.registerListener(listener,
 				adminSensores.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
 				SensorManager.SENSOR_DELAY_NORMAL);
 	}
