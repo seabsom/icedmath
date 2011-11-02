@@ -1,8 +1,10 @@
 package mx.itesm.niveles;
 
+
 import mx.itesm.menus.R;
 import mx.itesm.personajes.Enemigo;
 import mx.itesm.personajes.Protagonista;
+import mx.itesm.personajes.Sprite;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,6 +26,10 @@ public class Nivel extends View {
 	private int xd, xp, offset;
 	private Bitmap btnsaltar;
 	private Bitmap btnatacar;
+	private float posOle;
+	private boolean viendoDerecha;
+	private boolean isJump = false;
+
 
 	public Nivel(Context contexto) {
 		super(contexto);
@@ -41,7 +47,6 @@ public class Nivel extends View {
 				R.drawable.saltar);
 		btnatacar= BitmapFactory.decodeResource(getResources(),
 				R.drawable.atacar);
-
 
 	}
 
@@ -64,7 +69,6 @@ public class Nivel extends View {
 
 	}
 
-	//MODIFICALA!!!
 	public void calcularXd() {
 		int ancho = getWidth();
 		if (xp < ancho / 2) {
@@ -83,25 +87,32 @@ public class Nivel extends View {
 	public void actualizar() {
 		enemigo.moverseAdelante();
 		if (derIsPressed) {
+			viendoDerecha=true;
 			oleg.moverseAdelante();
-			xp += 4;
+			xp += 10;
+			if (oleg.getX() >= 790 || oleg.getX() <= 0) {
+				derIsPressed = false;
+			}
 		} else if (izqIsPressed) {
+			viendoDerecha=false;
 			oleg.moverseAtras();
-			xp -= 4;
+			xp -= 10;
+			if (oleg.getX() <= -790 || oleg.getX() <= 0) {
+				izqIsPressed = false;					
+			}
 		} else {
 			oleg.pararse();
 		}
 
-		// Verificar choques PENDIENTE; NO FUNCIONA
-//
-//		if (enemigo.getPosicion().x >= xd - oleg.getWidth()
-//				&& enemigo.getPosicion().x <= xd + oleg.getWidth()) {
-//			if (enemigo.getPosicion().y >= oleg.getHeight()
-//					&& enemigo.getPosicion().y <= oleg.getHeight()
-//							- enemigo.getHeight()) {
-//				oleg.setPosicion(new Posicion(xd, 215));
-//			}
-//		}
+		if (enemigo.getX() >= xd - oleg.getX()
+				&& enemigo.getX() <= xd + oleg.getWidth()) {
+			oleg.setX(-400);
+			if (enemigo.getY() >= oleg.getY()
+					&& enemigo.getY() <= oleg.getY() - enemigo.getHeight()) {
+				oleg.setY(-400);
+			}
+		}
+		
 	}
 
 	@Override
@@ -121,14 +132,61 @@ public class Nivel extends View {
 				izqIsPressed = true;
 
 			}
+			
+			if(event.getX()>getWidth()-btnsaltar.getWidth()
+					&&event.getY()>getHeight()-btnsaltar.getHeight()){
+				if(isJump==false){
+					isJump=true;
+					posOle=oleg.getY();
+					Thread thr = new Thread(new Runnable() {
+
+						public void run() {
+			            	if(viendoDerecha==true){
+			            		int[] ids ={R.drawable.saltarunoder,R.drawable.saltardosder};
+			            		oleg.setSprite(new Sprite(getResources(), ids));
+			            		while (oleg.getY()>posOle-200) {
+			            			oleg.saltar();
+			            		}
+			            		oleg.getSprite().nextFrame();
+			            		while (oleg.getY()<posOle) {
+			        				oleg.caer();
+			        			}
+			            		oleg.pararseDer();
+			            		isJump=false;
+
+			               	}
+			            	else if(viendoDerecha==false){
+			            		int[] ids ={R.drawable.saltaruno, R.drawable.saltardos};
+			            		oleg.setSprite(new Sprite(getResources(), ids));
+			            		while (oleg.getY()>posOle-200) {
+			            				oleg.saltar();
+			            		}
+			            		oleg.getSprite().nextFrame();
+			            		while (oleg.getY()<posOle) {
+		        					oleg.caer();
+		        				}
+			            		oleg.pararseIzq();
+			            		isJump=false;
+			            		        				
+			            	}
+			                
+			            }
+			        });
+					thr.start();
+			      }
+		}
 			break;
-		
+			
 		default:
 			derIsPressed = false;
 			izqIsPressed = false;
+			oleg.pararse();
 			return false;
+			
 		}
 		return true;
+	
+		
 	}
-
 }
+	
