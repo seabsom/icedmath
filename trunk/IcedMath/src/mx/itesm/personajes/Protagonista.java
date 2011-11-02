@@ -1,6 +1,7 @@
 package mx.itesm.personajes;
 
 import android.content.Context;
+
 import mx.itesm.menus.R;
 
 public class Protagonista extends Personaje {
@@ -28,8 +29,25 @@ public class Protagonista extends Personaje {
 	
 	
 	public void saltar() {
-		// TODO Auto-generated method stub
+		
+			try {
+				Thread.currentThread();
+				Thread.sleep(10);
+				setY(getY()-1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+	
+	}
+	public void caer() {
 
+		try {
+			Thread.currentThread();
+			Thread.sleep(10);
+			setY(getY()+1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+		}		
 	}
 
 	public void tomarItem() {
@@ -47,8 +65,19 @@ public class Protagonista extends Personaje {
 		setX(getX()-4);
 	}
 	
+	
 	public void pararse(){
-		getSprite().firstFrame();
+		getSprite().firstFrame();	
+	}
+	
+	public void pararseIzq(){
+		int[] ids ={ R.drawable.normalizq};
+		super.setSprite(new Sprite(getResources(), ids));	
+	}
+	
+	public void pararseDer(){
+		int[] ids ={ R.drawable.normalder};
+		super.setSprite(new Sprite(getResources(), ids));
 	}
 
 }
