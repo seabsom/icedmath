@@ -123,12 +123,12 @@ public class Nivel extends View {
 			
 			if ((event.getX() > izquierda.getWidth() && event.getX() < 2*izquierda.getWidth())
 					&& event.getY() > (getHeight() - derecha.getHeight())) {
-				oleg.spriteNormal();
+				oleg.voltearDer();
 				derIsPressed = true;
 				
 			}else if (event.getX() < izquierda.getWidth()
 					&& event.getY() > (getHeight() - izquierda.getHeight())) {
-				oleg.voltear();
+				oleg.voltearIzq();
 				izqIsPressed = true;
 
 			}
