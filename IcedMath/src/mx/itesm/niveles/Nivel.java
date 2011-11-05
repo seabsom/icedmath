@@ -87,16 +87,24 @@ public class Nivel extends View {
 			viendoDerecha = true;
 			oleg.moverseAdelante();
 			xp += 4;
-			if (oleg.getX() >= 790 || oleg.getX() <= 0) { // 790 es #m‡gico; se debe usar panatlla.get width
+			if (oleg.getX() >= 790 || oleg.getX() <= 0) { // 790 es #m‡gico; se
+															// debe usar
+															// panatlla.get
+															// width
 				derIsPressed = false;
 			}
 		} else if (izqIsPressed) {
 			viendoDerecha = false;
 			oleg.moverseAtras();
 			xp -= 4;
-			if (oleg.getX() <= -790 || oleg.getX() <= 0) { // 790 es #m‡gico; se debe usar panatlla.get width
+			if (oleg.getX() <= -790 || oleg.getX() <= 0) { // 790 es #m‡gico; se
+															// debe usar
+															// panatlla.get
+															// width
 				izqIsPressed = false;
 			}
+		} else if (isJump) {
+
 		} else {
 			oleg.pararse();
 		}
