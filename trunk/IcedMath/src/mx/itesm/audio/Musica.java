@@ -1,11 +1,9 @@
 package mx.itesm.audio;
 
-
-import android.app.Activity;
 import android.content.Context;
 import android.media.MediaPlayer;
 
-public class Musica extends Activity {
+public class Musica {
 
 	private MediaPlayer player;
 	private Context contexto;
@@ -13,7 +11,7 @@ public class Musica extends Activity {
 
 	public Musica(int cancion, Context contexto) {
 		this.cancion = cancion;
-		this.contexto= contexto;
+		this.contexto = contexto;
 	}
 
 	public void play() {
@@ -33,4 +31,5 @@ public class Musica extends Activity {
 			}
 		}
 	}
+
 }

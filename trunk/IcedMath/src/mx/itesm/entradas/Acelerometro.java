@@ -29,8 +29,7 @@ public class Acelerometro extends Activity {
 	private final float deltaAceleracionShake = 1.5f;
 
 	// Se ha iniciado un "shake"
-	private boolean inicioShake = false;	
-	
+	private boolean inicioShake = false;
 
 	// Se inicializa un listener de eventos de sensores
 	private final SensorEventListener listener = new SensorEventListener() {
@@ -51,7 +50,8 @@ public class Acelerometro extends Activity {
 			}
 		}
 
-		//No se requiere este método, debido a que no se necesita un cambio de precisión
+		// No se requiere este método, debido a que no se necesita un cambio de
+		// precisión
 		public void onAccuracyChanged(Sensor sensor, int accuracy) {
 		}
 

@@ -14,18 +14,20 @@ public class Fondo extends View {
 	private float x;
 	private float y;
 
-	public Fondo(Context contexto) {
+	public Fondo(Context contexto, Bitmap fondo) {
 		super(contexto);
 		grafico = BitmapFactory.decodeResource(getResources(),
-				R.drawable.montanas); // Se deja el fondo fijo
+				R.drawable.montanas); // ASê Se deja el fondo fijo, pero se debe
+										// recibir "fondo" y asignarlo a
+										// "grafico"
 		this.x = 0;
 		this.y = 0;
 	}
-	
+
 	public Bitmap getGrafico() {
 		return grafico;
 	}
-	
+
 	public float getX() {
 		return x;
 	}

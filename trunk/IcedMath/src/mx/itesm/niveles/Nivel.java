@@ -1,6 +1,5 @@
 package mx.itesm.niveles;
 
-
 import mx.itesm.menus.R;
 import mx.itesm.personajes.Enemigo;
 import mx.itesm.personajes.Protagonista;
@@ -30,7 +29,6 @@ public class Nivel extends View {
 	private boolean viendoDerecha;
 	private boolean isJump = false;
 
-
 	public Nivel(Context contexto) {
 		super(contexto);
 		paint = new Paint();
@@ -43,11 +41,10 @@ public class Nivel extends View {
 				R.drawable.derecha);
 		izquierda = BitmapFactory.decodeResource(getResources(),
 				R.drawable.izquierda);
-		btnsaltar= BitmapFactory.decodeResource(getResources(),
+		btnsaltar = BitmapFactory.decodeResource(getResources(),
 				R.drawable.saltar);
-		btnatacar= BitmapFactory.decodeResource(getResources(),
+		btnatacar = BitmapFactory.decodeResource(getResources(),
 				R.drawable.atacar);
-
 	}
 
 	@Override
@@ -63,10 +60,9 @@ public class Nivel extends View {
 				(canvas.getHeight() - derecha.getHeight()), paint);
 		canvas.drawBitmap(btnsaltar, canvas.getWidth() - btnsaltar.getWidth(),
 				(canvas.getHeight() - btnsaltar.getHeight()), paint);
-		canvas.drawBitmap(btnatacar, canvas.getWidth() - 2*(btnatacar.getWidth()),
+		canvas.drawBitmap(btnatacar,
+				canvas.getWidth() - 2 * (btnatacar.getWidth()),
 				(canvas.getHeight() - derecha.getHeight()), paint);
-
-
 	}
 
 	public void calcularXd() {
@@ -81,24 +77,23 @@ public class Nivel extends View {
 			xd = ancho / 2;
 			offset = xp - ancho / 2;
 		}
-
 	}
 
 	public void actualizar() {
 		enemigo.moverseAdelante();
 		if (derIsPressed) {
-			viendoDerecha=true;
+			viendoDerecha = true;
 			oleg.moverseAdelante();
 			xp += 10;
 			if (oleg.getX() >= 790 || oleg.getX() <= 0) {
 				derIsPressed = false;
 			}
 		} else if (izqIsPressed) {
-			viendoDerecha=false;
+			viendoDerecha = false;
 			oleg.moverseAtras();
 			xp -= 10;
 			if (oleg.getX() <= -790 || oleg.getX() <= 0) {
-				izqIsPressed = false;					
+				izqIsPressed = false;
 			}
 		} else {
 			oleg.pararse();
@@ -112,7 +107,6 @@ public class Nivel extends View {
 				oleg.setY(-400);
 			}
 		}
-		
 	}
 
 	@Override
@@ -120,73 +114,71 @@ public class Nivel extends View {
 		switch (event.getAction()) {
 
 		case MotionEvent.ACTION_DOWN:
-			
-			if ((event.getX() > izquierda.getWidth() && event.getX() < 2*izquierda.getWidth())
+
+			if ((event.getX() > izquierda.getWidth() && event.getX() < 2 * izquierda
+					.getWidth())
 					&& event.getY() > (getHeight() - derecha.getHeight())) {
 				oleg.voltearDer();
 				derIsPressed = true;
-				
-			}else if (event.getX() < izquierda.getWidth()
+
+			} else if (event.getX() < izquierda.getWidth()
 					&& event.getY() > (getHeight() - izquierda.getHeight())) {
 				oleg.voltearIzq();
 				izqIsPressed = true;
 
 			}
-			
-			if(event.getX()>getWidth()-btnsaltar.getWidth()
-					&&event.getY()>getHeight()-btnsaltar.getHeight()){
-				if(isJump==false){
-					isJump=true;
-					posOle=oleg.getY();
+
+			if (event.getX() > getWidth() - btnsaltar.getWidth()
+					&& event.getY() > getHeight() - btnsaltar.getHeight()) {
+				if (isJump == false) {
+					isJump = true;
+					posOle = oleg.getY();
 					Thread thr = new Thread(new Runnable() {
 
 						public void run() {
-			            	if(viendoDerecha==true){
-			            		int[] ids ={R.drawable.saltarunoder,R.drawable.saltardosder};
-			            		oleg.setSprite(new Sprite(getResources(), ids));
-			            		while (oleg.getY()>posOle-200) {
-			            			oleg.saltar();
-			            		}
-			            		oleg.getSprite().nextFrame();
-			            		while (oleg.getY()<posOle) {
-			        				oleg.caer();
-			        			}
-			            		oleg.pararseDer();
-			            		isJump=false;
+							if (viendoDerecha == true) {
+								int[] ids = { R.drawable.saltarunoder,
+										R.drawable.saltardosder };
+								oleg.setSprite(new Sprite(getResources(), ids));
+								while (oleg.getY() > posOle - 200) {
+									oleg.saltar();
+								}
+								oleg.getSprite().nextFrame();
+								while (oleg.getY() < posOle) {
+									oleg.caer();
+								}
+								oleg.pararseDer();
+								isJump = false;
 
-			               	}
-			            	else if(viendoDerecha==false){
-			            		int[] ids ={R.drawable.saltaruno, R.drawable.saltardos};
-			            		oleg.setSprite(new Sprite(getResources(), ids));
-			            		while (oleg.getY()>posOle-200) {
-			            				oleg.saltar();
-			            		}
-			            		oleg.getSprite().nextFrame();
-			            		while (oleg.getY()<posOle) {
-		        					oleg.caer();
-		        				}
-			            		oleg.pararseIzq();
-			            		isJump=false;
-			            		        				
-			            	}
-			                
-			            }
-			        });
+							} else if (viendoDerecha == false) {
+								int[] ids = { R.drawable.saltaruno,
+										R.drawable.saltardos };
+								oleg.setSprite(new Sprite(getResources(), ids));
+								while (oleg.getY() > posOle - 200) {
+									oleg.saltar();
+								}
+								oleg.getSprite().nextFrame();
+								while (oleg.getY() < posOle) {
+									oleg.caer();
+								}
+								oleg.pararseIzq();
+								isJump = false;
+							}
+						}
+					});
 					thr.start();
-			      }
-		}
+				}
+			}
 			break;
-			
+
 		default:
 			derIsPressed = false;
 			izqIsPressed = false;
 			oleg.pararse();
 			return false;
-			
+
 		}
 		return true;
-	
-		
 	}
+
 }
-	

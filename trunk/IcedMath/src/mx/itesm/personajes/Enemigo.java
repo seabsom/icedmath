@@ -7,7 +7,7 @@ public class Enemigo extends Personaje {
 
 	public Enemigo(Context contexto, float x, float y) {
 		super(contexto, x, y);
-		int []ids = { R.drawable.specteruno, R.drawable.specterdos,
+		int[] ids = { R.drawable.specteruno, R.drawable.specterdos,
 				R.drawable.spectertres, R.drawable.spectercuatro,
 				R.drawable.spectercinco, R.drawable.specterseis,
 				R.drawable.spectersiete };
