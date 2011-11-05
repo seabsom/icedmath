@@ -21,18 +21,16 @@ public class PantallaNivelVilla extends Activity implements Runnable {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		
+
 		nivel = new Nivel(this);
 		setContentView(nivel);
-		musica= new Musica(R.raw.darkskies, this);
+		musica = new Musica(R.raw.darkskies, this);
 		musica.play();
-
 	}
 
-	
 	@Override
 	protected void onStop() {
-		musica.stop();	
+		musica.stop();
 		corriendo = false;
 		super.onStop();
 	}

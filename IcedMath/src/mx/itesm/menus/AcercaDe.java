@@ -18,4 +18,5 @@ public class AcercaDe extends Activity {
 
 		setContentView(R.layout.acercade);
 	}
+
 }
