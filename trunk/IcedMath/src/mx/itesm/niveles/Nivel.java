@@ -25,15 +25,17 @@ public class Nivel extends View {
 	private int xd, xp, offset;
 	private Bitmap btnsaltar;
 	private Bitmap btnatacar;
-	private float posOle;
+	private float yOriginal;
 	private boolean viendoDerecha;
 	private boolean isJump = false;
 
-	public Nivel(Context contexto) {
+	public Nivel(Context contexto/* , Bitmap fondo */) {
 		super(contexto);
 		paint = new Paint();
 		fondo = BitmapFactory.decodeResource(getResources(),
-				R.drawable.montanas);
+				R.drawable.montanas); // ASê Se deja el fondo fijo, pero se debe
+										// recibir "fondo" y asignarlo a
+										// "this.fondo"
 		xp = 0;
 		oleg = new Protagonista(contexto, xd, 215);
 		enemigo = new Enemigo(contexto, 500, 200);
@@ -84,15 +86,15 @@ public class Nivel extends View {
 		if (derIsPressed) {
 			viendoDerecha = true;
 			oleg.moverseAdelante();
-			xp += 10;
-			if (oleg.getX() >= 790 || oleg.getX() <= 0) {
+			xp += 4;
+			if (oleg.getX() >= 790 || oleg.getX() <= 0) { // 790 es #m‡gico; se debe usar panatlla.get width
 				derIsPressed = false;
 			}
 		} else if (izqIsPressed) {
 			viendoDerecha = false;
 			oleg.moverseAtras();
-			xp -= 10;
-			if (oleg.getX() <= -790 || oleg.getX() <= 0) {
+			xp -= 4;
+			if (oleg.getX() <= -790 || oleg.getX() <= 0) { // 790 es #m‡gico; se debe usar panatlla.get width
 				izqIsPressed = false;
 			}
 		} else {
@@ -132,7 +134,7 @@ public class Nivel extends View {
 					&& event.getY() > getHeight() - btnsaltar.getHeight()) {
 				if (isJump == false) {
 					isJump = true;
-					posOle = oleg.getY();
+					yOriginal = oleg.getY();
 					Thread thr = new Thread(new Runnable() {
 
 						public void run() {
@@ -140,11 +142,11 @@ public class Nivel extends View {
 								int[] ids = { R.drawable.saltarunoder,
 										R.drawable.saltardosder };
 								oleg.setSprite(new Sprite(getResources(), ids));
-								while (oleg.getY() > posOle - 200) {
+								while (oleg.getY() > yOriginal - 150) {
 									oleg.saltar();
 								}
 								oleg.getSprite().nextFrame();
-								while (oleg.getY() < posOle) {
+								while (oleg.getY() < yOriginal) {
 									oleg.caer();
 								}
 								oleg.pararseDer();
@@ -154,11 +156,11 @@ public class Nivel extends View {
 								int[] ids = { R.drawable.saltaruno,
 										R.drawable.saltardos };
 								oleg.setSprite(new Sprite(getResources(), ids));
-								while (oleg.getY() > posOle - 200) {
+								while (oleg.getY() > yOriginal - 150) {
 									oleg.saltar();
 								}
 								oleg.getSprite().nextFrame();
-								while (oleg.getY() < posOle) {
+								while (oleg.getY() < yOriginal) {
 									oleg.caer();
 								}
 								oleg.pararseIzq();

@@ -31,7 +31,7 @@ public class Protagonista extends Personaje {
 
 		try {
 			Thread.currentThread();
-			Thread.sleep(10);
+			Thread.sleep(1);
 			setY(getY() - 1);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -43,7 +43,7 @@ public class Protagonista extends Personaje {
 
 		try {
 			Thread.currentThread();
-			Thread.sleep(10);
+			Thread.sleep(3);
 			setY(getY() + 1);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
