@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class PantallaNivelVilla extends Activity implements Runnable {
+public class PantallaNivel extends Activity implements Runnable {
 
 	private Nivel nivel;
 	private boolean corriendo;
