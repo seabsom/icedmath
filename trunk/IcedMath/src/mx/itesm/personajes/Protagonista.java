@@ -8,17 +8,17 @@ public class Protagonista extends Personaje {
 
 	public Protagonista(Context contexto, float x, float y) {
 		super(contexto, x, y);
-		spriteNormal();
+		voltearDer();
 	}
 	
-	public void spriteNormal(){
+	public void voltearDer(){
 		int[] ids ={ R.drawable.normalder, R.drawable.caminaunoder,
 				R.drawable.caminadosder, R.drawable.caminatresder,
 				R.drawable.caminacuatroder, R.drawable.caminacincoder};
 		super.setSprite(new Sprite(getResources(), ids));
 	}
 	
-	public void voltear(){
+	public void voltearIzq(){
 		int[] ids ={ R.drawable.normalizq, R.drawable.caminauno,
 				R.drawable.caminados, R.drawable.caminatres,
 				R.drawable.caminacuatro, R.drawable.caminacinco};
