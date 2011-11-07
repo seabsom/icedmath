@@ -6,6 +6,18 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
+/**
+ * Esta clase se encarga de mostrar el splashscreen con el logo del equipo (Mad
+ * Ice)
+ * 
+ * @author Edwin Antonio González Urzua
+ * @author Alejandro Segura Gómez
+ * @author Alejandro Flores Ibarra
+ * @author Guillermo Juárez Durán
+ * @author Marlen Aguilar Durán
+ * @version 1.0. 05/10/2011
+ * 
+ */
 public class MadIce extends Activity {
 
 	private static int SPLASH_TIME = 3000; // tiempo a mostrar Activity en ms

@@ -5,6 +5,16 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
+/**
+ * Esta clase se encarga de mostrar la pantalla "Puntuaciones Altas" (opción del menú principal)
+ * @author Edwin Antonio González Urzua
+ * @author Alejandro Segura Gómez
+ * @author Alejandro Flores Ibarra
+ * @author Guillermo Juárez Durán
+ * @author Marlen Aguilar Durán
+ * @version 1.0. 05/10/2011
+ *
+ */
 public class PuntuacionesAltas extends Activity {
 
 	@Override
