@@ -8,6 +8,18 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 
+/**
+ * Esta clase se encarga de obtener información del acelerómetro y realizar una
+ * acción al detectar que el dispositivo se agita
+ * 
+ * @author Edwin Antonio González Urzua
+ * @author Alejandro Segura Gómez
+ * @author Alejandro Flores Ibarra
+ * @author Guillermo Juárez Durán
+ * @author Marlen Aguilar Durán
+ * @version 1.0. 29/10/2011
+ * 
+ */
 public class Acelerometro extends Activity {
 
 	private SensorManager adminSensores;
@@ -65,6 +77,17 @@ public class Acelerometro extends Activity {
 				SensorManager.SENSOR_DELAY_NORMAL);
 	}
 
+	/**
+	 * Método que se encarga de actualizar los datos del acelerómetro en todos
+	 * los ejes
+	 * 
+	 * @param nuevaAceleracionX
+	 *            Parámetro que indica la nueva aceleración en x
+	 * @param nuevaAceleracionY
+	 *            Parámetro que indica la nueva aceleración en y
+	 * @param nuevaAceleracionZ
+	 *            Parámetro que indica la nueva aceleración en z
+	 */
 	private void actualizarParametrosAcelerometro(float nuevaAceleracionX,
 			float nuevaAceleracionY, float nuevaAceleracionZ) {
 
