@@ -5,7 +5,6 @@ import mx.itesm.niveles.PantallaNivel;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -37,33 +36,23 @@ public class MainMenu extends Activity implements OnClickListener {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		setContentView(R.layout.mainmenu);
-		
+
 		player = IcedMath.player;
-		
+
 		if (player == null) {
 			player = new Musica(R.raw.rageofthechampions, this);
 			player.play();
 		} else {
-			
+
 		}
 
 		((Button) findViewById(R.id.Aventura)).setOnClickListener(this);
-		// ((Button) findViewById(R.id.ModoLibre)).setOnClickListener(this);
-		((Button) findViewById(R.id.PuntuacionesAltas))
-				.setOnClickListener(this);
+	// 	((Button) findViewById(R.id.ModoLibre)).setOnClickListener(this);
+		((Button) findViewById(R.id.PuntuacionesAltas)).setOnClickListener(this);
 		((Button) findViewById(R.id.Extras)).setOnClickListener(this);
 		((Button) findViewById(R.id.Ayuda)).setOnClickListener(this);
 		((Button) findViewById(R.id.AcercaDe)).setOnClickListener(this);
 
-	}
-
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			player.stop();
-			finish();
-		}
-		return true;
 	}
 
 	@Override
@@ -77,11 +66,12 @@ public class MainMenu extends Activity implements OnClickListener {
 			startActivity(intencion);
 			finish();
 			break;
-		/*
-		 * case R.id.ModoLibre: intencion= new
-		 * Intent(this,PantallaNivelVilla.class); startActivity(intencion);
-		 * break;
-		 */
+	/*
+	* 	case R.id.ModoLibre: 
+	* 		intencion= new Intent(this,PantallaNivelVilla.class); 
+	* 		startActivity(intencion);
+	* 		break;
+	*/
 		case R.id.PuntuacionesAltas:
 			intencion = new Intent(this, PuntuacionesAltas.class);
 			startActivity(intencion);
