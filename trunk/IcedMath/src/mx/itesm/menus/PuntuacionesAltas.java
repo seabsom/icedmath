@@ -20,7 +20,7 @@ import android.view.WindowManager;
 public class PuntuacionesAltas extends Activity {
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		// Este bloque quita el nombre de la aplicación

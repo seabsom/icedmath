@@ -22,7 +22,7 @@ import android.view.WindowManager;
  */
 public class IcedMath extends Activity {
 
-	static Musica player;
+	protected static Musica player;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
