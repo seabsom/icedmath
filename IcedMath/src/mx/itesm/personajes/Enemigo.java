@@ -40,4 +40,5 @@ public class Enemigo extends Personaje {
 	public void moverse() {
 		getSprite().nextFrame();
 	}
+
 }

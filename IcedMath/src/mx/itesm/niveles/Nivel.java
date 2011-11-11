@@ -80,7 +80,7 @@ public class Nivel extends View {
 	}
 
 	@Override
-	protected void onDraw(Canvas canvas) {
+	public void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		calcularXd();
 

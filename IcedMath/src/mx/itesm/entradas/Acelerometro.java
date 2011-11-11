@@ -88,7 +88,7 @@ public class Acelerometro extends Activity {
 	 * @param nuevaAceleracionZ
 	 *            Parámetro que indica la nueva aceleración en z
 	 */
-	private void actualizarParametrosAcelerometro(float nuevaAceleracionX,
+	public void actualizarParametrosAcelerometro(float nuevaAceleracionX,
 			float nuevaAceleracionY, float nuevaAceleracionZ) {
 
 		if (primerShake) {
@@ -106,7 +106,7 @@ public class Acelerometro extends Activity {
 		aceleracionZ = nuevaAceleracionZ;
 	}
 
-	private boolean cambioAceleracion() {
+	public boolean cambioAceleracion() {
 		float deltaX = Math.abs(aceleracionAnteriorX - aceleracionX);
 		float deltaY = Math.abs(aceleracionAnteriorY - aceleracionY);
 		float deltaZ = Math.abs(aceleracionAnteriorZ - aceleracionZ);
@@ -115,7 +115,7 @@ public class Acelerometro extends Activity {
 				|| (deltaY > deltaAceleracionShake && deltaZ > deltaAceleracionShake);
 	}
 
-	private void accionShake() {
+	public void accionShake() {
 		// Aqui activa el item, poner código de prueba para verificar esta clase
 	}
 

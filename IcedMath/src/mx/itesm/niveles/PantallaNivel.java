@@ -26,7 +26,7 @@ public class PantallaNivel extends Activity implements Runnable {
 	private Musica musica;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		// Este bloque quita el nombre de la aplicación
@@ -41,14 +41,14 @@ public class PantallaNivel extends Activity implements Runnable {
 	}
 
 	@Override
-	protected void onStop() {
+	public void onStop() {
 		musica.stop();
 		corriendo = false;
 		super.onStop();
 	}
 
 	@Override
-	protected void onResume() {
+	public void onResume() {
 		super.onResume();
 		Thread th = new Thread(this);
 		th.start();
