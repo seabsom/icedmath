@@ -1,12 +1,9 @@
 package mx.itesm.niveles;
 
 import mx.itesm.audio.Musica;
-import mx.itesm.menus.MainMenu;
 import mx.itesm.menus.R;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -69,19 +66,6 @@ public class PantallaNivel extends Activity implements Runnable {
 			}
 		}
 
-	}
-	
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if(keyCode==KeyEvent.KEYCODE_BACK){
-			Intent intencion= new Intent(this,MainMenu.class);
-			startActivity(intencion);
-			finish();
-			
-		}
-		
-		return true;
-		
 	}
 
 }
