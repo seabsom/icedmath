@@ -1,6 +1,7 @@
 package mx.itesm.personajes;
 
 import java.util.LinkedList;
+
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -47,14 +48,10 @@ public class Sprite {
 	 * Método que se encarga de dibujar una imagen del sprite, dependiendo del
 	 * índice actual
 	 * 
-	 * @param canvas
-	 *            Respresenta el canvas en el que será dibujada la imagen
-	 * @param x
-	 *            Representa la "x" en la que se dibujará la imagen
-	 * @param y
-	 *            Representa la "y" en la que se dibujará la imagen
-	 * @param p
-	 *            Representa al Paint qus será utilizado
+	 * @param canvas Respresenta el canvas en el que será dibujada la imagen
+	 * @param x Representa la "x" en la que se dibujará la imagen
+	 * @param y Representa la "y" en la que se dibujará la imagen
+	 * @param p Representa al Paint qus será utilizado 
 	 */
 	public void draw(Canvas canvas, float x, float y, Paint p) {
 		canvas.drawBitmap(listaImgs.get(indice), x, y, p);
@@ -83,7 +80,6 @@ public class Sprite {
 
 	/**
 	 * Método accesor de la altura de las imagenes del arreglo
-	 * 
 	 * @return La altura de las imágenes en ele arreglo
 	 */
 	public float getAlto() {
