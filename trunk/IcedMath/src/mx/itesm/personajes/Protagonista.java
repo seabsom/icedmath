@@ -1,31 +1,26 @@
 package mx.itesm.personajes;
 
 import android.content.Context;
+
 import mx.itesm.menus.R;
 
 /**
- * Esta clase representa a un protagonista con todos sus atributos. Hereda de la
- * clase "Personaje"
- * 
+ * Esta clase representa a un protagonista con todos sus atributos. Hereda de la clase "Personaje"
  * @author Edwin Antonio González Urzua
  * @author Alejandro Segura Gómez
  * @author Alejandro Flores Ibarra
  * @author Guillermo Juárez Durán
  * @author Marlen Aguilar Durán
  * @version 1.0. 06/11/2011
- * 
+ *
  */
 public class Protagonista extends Personaje {
 
 	/**
 	 * Contructor de la clase Protagonista
-	 * 
-	 * @param contexto
-	 *            Indica en que contexto será usado Protagonista
-	 * @param x
-	 *            Indica la x que tendrá Protagonista
-	 * @param y
-	 *            Indica la y que tendrá Protagonista
+	 * @param contexto Indica en que contexto será usado Protagonista
+	 * @param x Indica la x que tendrá Protagonista
+	 * @param y Indica la y que tendrá Protagonista
 	 */
 	public Protagonista(Context contexto, float x, float y) {
 		super(contexto, x, y);
@@ -43,7 +38,7 @@ public class Protagonista extends Personaje {
 	}
 
 	/**
-	 * Método que le dice a Protagonista que debe voltear a la izquierda
+	 *Método que le dice a Protagonista que debe voltear a la izquierda 
 	 */
 	public void voltearIzq() {
 		int[] ids = { R.drawable.normalizq, R.drawable.caminauno,
@@ -104,8 +99,7 @@ public class Protagonista extends Personaje {
 	}
 
 	/**
-	 * Método que le dice al personaje que debe quedarse quieto mirando a la
-	 * izquierda
+	 * Método que le dice al personaje que debe quedarse quieto mirando a la izquierda
 	 */
 	public void pararseIzq() {
 		int[] ids = { R.drawable.normalizq };
@@ -113,8 +107,7 @@ public class Protagonista extends Personaje {
 	}
 
 	/**
-	 * Método que le dice al personaje que debe quedarse quieto mirando a la
-	 * derecha
+	 * Método que le dice al personaje que debe quedarse quieto mirando a la derecha
 	 */
 	public void pararseDer() {
 		int[] ids = { R.drawable.normalder };

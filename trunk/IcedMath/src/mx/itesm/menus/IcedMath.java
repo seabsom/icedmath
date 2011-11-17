@@ -21,8 +21,8 @@ import android.view.WindowManager;
  * 
  */
 public class IcedMath extends Activity {
-
-	protected static Musica player;
+	
+	static Musica player;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class IcedMath extends Activity {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		setContentView(R.layout.icedmath);
-		player = new Musica(R.raw.rageofthechampions, this);
+		player= new Musica(R.raw.rageofthechampions, this);
 		player.play();
 
 	}

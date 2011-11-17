@@ -127,18 +127,17 @@ public class Personaje extends View {
 	public void atacar() {
 	}
 
+	
 	/**
 	 * Método accesor de la altura de los sprites del personaje
-	 * 
 	 * @return La altura del personaje
 	 */
 	public float getAlto() {
 		return sprite.getAlto();
 	}
-
+	
 	/**
 	 * Método accesor de el ancho de los sprites del personaje
-	 * 
 	 * @return El ancho del personaje
 	 */
 	public float getAncho() {

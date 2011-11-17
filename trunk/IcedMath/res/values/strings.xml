@@ -11,4 +11,7 @@
     <string name="lblExtras">Extras</string>
     <string name="lblAyuda">Ayuda</string>
     <string name="lblAcercaDe">Acerca De</string>
+    <string name="lblGameOver">Has Perdido</string>
+    <string name="lblRetry">Intentar de nuevo</string>
+    <string name="lblVolverMenu">Volver al menú</string>
 </resources>
