@@ -50,6 +50,7 @@ public class Nivel extends View {
 	private int tiempoInvulnerable = 0;
 	private boolean gameOver;
 	private boolean pausa;
+	private int puntaje;
 
 	/**
 	 * Constructor de la clase Nivel
@@ -159,10 +160,10 @@ public class Nivel extends View {
 		//
 		// }
 
-		int extvida = 0;
-		for (int i = 0; i <= contadorVida; i++) {
-			canvas.drawBitmap(this.vida, extvida, 0, paint);
-			extvida = vida.getWidth() + extvida;
+		int coordenadaXVida = 0;
+		for (int i = 1; i <= contadorVida; i++) {
+			canvas.drawBitmap(this.vida, coordenadaXVida, 0, paint);
+			coordenadaXVida = vida.getWidth() + coordenadaXVida;
 
 		}
 
@@ -171,6 +172,11 @@ public class Nivel extends View {
 		btnAtacar = btnAtacarEscala;
 		btnSaltar = btnSaltarEscala;
 		btnPausa = btnPausaEscala;
+
+		paint.setColor(Color.WHITE);
+		paint.setTextSize(14);
+		canvas.drawText("Score: " + puntaje, canvas.getWidth(),
+				canvas.getHeight(), paint);
 
 	}
 
@@ -258,8 +264,12 @@ public class Nivel extends View {
 			// )
 		) {
 			if (!invulnerable) {
-				contadorVida = contadorVida - 1;
+				contadorVida--;
+				if (contadorVida == 0) {
+					gameOver = true;
+				}
 				invulnerable = true;
+				
 			}
 
 			/*
@@ -359,6 +369,10 @@ public class Nivel extends View {
 
 		}
 		return true;
+	}
+	
+	public boolean getGameOver(){
+		return gameOver;
 	}
 
 }
