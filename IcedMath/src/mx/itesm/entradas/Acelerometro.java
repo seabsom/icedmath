@@ -6,7 +6,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Bundle;
+import android.widget.Toast;
+
 
 /**
  * Esta clase se encarga de obtener información del acelerómetro y realizar una
@@ -38,10 +39,13 @@ public class Acelerometro extends Activity {
 	private boolean primerShake = true;
 
 	// Se guarda el delta de aceleración que representa un movimiento rápido
-	private final float deltaAceleracionShake = 1.5f;
+	private final float deltaAceleracionShake = 1.8f;
 
 	// Se ha iniciado un "shake"
 	private boolean inicioShake = false;
+	
+	//Contexto actual
+	private Context contexto;
 
 	// Se inicializa un listener de eventos de sensores
 	private final SensorEventListener listener = new SensorEventListener() {
@@ -68,14 +72,20 @@ public class Acelerometro extends Activity {
 		}
 
 	};
-
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		adminSensores = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+	
+	/**
+	 * Constructor de la clase Acelerómetro. Define al administrador de sensores
+	 * @param actividad Define la actividad en la que estará trabajando el acelerómetro.
+	 */
+	public Acelerometro(Activity actividad) {
+		adminSensores = (SensorManager) actividad.getSystemService(Context.SENSOR_SERVICE);
 		adminSensores.registerListener(listener,
 				adminSensores.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
 				SensorManager.SENSOR_DELAY_NORMAL);
+		contexto= actividad.getBaseContext();
 	}
+
+	
 
 	/**
 	 * Método que se encarga de actualizar los datos del acelerómetro en todos
@@ -106,6 +116,10 @@ public class Acelerometro extends Activity {
 		aceleracionZ = nuevaAceleracionZ;
 	}
 
+	/**
+	 * Método que detecta un cambio de aceleración en dos ejes
+	 * @return Si hubo un cambio en dos ejes o no.
+	 */
 	private boolean cambioAceleracion() {
 		float deltaX = Math.abs(aceleracionAnteriorX - aceleracionX);
 		float deltaY = Math.abs(aceleracionAnteriorY - aceleracionY);
@@ -115,8 +129,19 @@ public class Acelerometro extends Activity {
 				|| (deltaY > deltaAceleracionShake && deltaZ > deltaAceleracionShake);
 	}
 
+	/**
+	 * Método que realiza una acción cuando un el celular se agita.
+	 */
 	private void accionShake() {
-		// Aqui activa el item, poner código de prueba para verificar esta clase
+		Toast.makeText(contexto, "Shake!", Toast.LENGTH_SHORT).show();
+	}
+	
+
+	/**
+	 * Método que ayuda a calibrar el acelerómetro al momento de ser creado
+	 */
+	public void calibrar(){
+		Toast.makeText(contexto, "Calibrando", Toast.LENGTH_SHORT).show();
 	}
 
 }

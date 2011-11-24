@@ -1,6 +1,8 @@
 package mx.itesm.niveles;
 
 import mx.itesm.audio.Musica;
+import mx.itesm.entradas.Acelerometro;
+import mx.itesm.menus.GameOver;
 import mx.itesm.menus.MainMenu;
 import mx.itesm.menus.R;
 import android.app.Activity;
@@ -27,6 +29,8 @@ public class PantallaNivel extends Activity implements Runnable {
 	private Nivel nivel;
 	private boolean corriendo;
 	private Musica musica;
+	private Acelerometro acelerometro;
+	private boolean gameOver;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +41,17 @@ public class PantallaNivel extends Activity implements Runnable {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+		acelerometro = new Acelerometro(this);
+		acelerometro.calibrar();
+
 		nivel = new Nivel(this);
 		setContentView(nivel);
+
+		gameOver = nivel.getGameOver();
+
 		musica = new Musica(R.raw.darkskies, this);
 		musica.play();
+
 	}
 
 	@Override
@@ -61,27 +72,44 @@ public class PantallaNivel extends Activity implements Runnable {
 	public void run() {
 		corriendo = true;
 		while (corriendo) {
-			nivel.actualizar();
-			nivel.postInvalidate();
-			try {
-				Thread.sleep(34);
-			} catch (InterruptedException e) {
+			if (!gameOver) {
+				nivel.actualizar();
+				nivel.postInvalidate();
+				gameOver=nivel.getGameOver();
+				try {
+					Thread.sleep(34);
+				} catch (InterruptedException e) {
+				}
+			} else {
+				onStop();
+				mostrarGameOver();
 			}
 		}
+		
+		Intent intencion= new Intent (this, GameOver.class);
+		startActivity(intencion);
+		finish();
 
 	}
 	
+	
+
+	private void mostrarGameOver() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if(keyCode==KeyEvent.KEYCODE_BACK){
-			Intent intencion= new Intent(this,MainMenu.class);
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			Intent intencion = new Intent(this, MainMenu.class);
 			startActivity(intencion);
 			finish();
-			
+
 		}
-		
+
 		return true;
-		
+
 	}
 
 }
