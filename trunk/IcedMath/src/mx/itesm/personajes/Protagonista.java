@@ -53,15 +53,9 @@ public class Protagonista extends Personaje {
 	 * Método que le dice a Protagonista que hacer al indicarle que debe saltar
 	 */
 	public void saltar() {
-
-		try {
-			Thread.currentThread();
-			Thread.sleep(1);
-			setY(getY() - 1);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
+		int[] ids = { R.drawable.saltarunoder};
+		super.setSprite(new Sprite(getResources(),
+				ids));
 	}
 
 	/**
@@ -69,13 +63,9 @@ public class Protagonista extends Personaje {
 	 */
 	public void caer() {
 
-		try {
-			Thread.currentThread();
-			Thread.sleep(3);
-			setY(getY() + 1);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		int[] ids = { R.drawable.saltardosder};
+		super.setSprite(new Sprite(getResources(),
+				ids));
 	}
 
 	/**
@@ -87,15 +77,14 @@ public class Protagonista extends Personaje {
 
 	@Override
 	public void moverse() {
-		getSprite().nextFrame();
-
+		super.getSprite().nextFrame();
 	}
 
 	/**
 	 * Método que le indica a protagonista que debe quedarse quieto
 	 */
 	public void pararse() {
-		getSprite().firstFrame();
+		super.getSprite().firstFrame();
 	}
 
 	/**

@@ -1,50 +1,33 @@
 package mx.itesm.menus;
 
-import mx.itesm.audio.Musica;
-import mx.itesm.niveles.PantallaNivel;
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 
-public class GameOver extends Activity implements OnClickListener {
-	
-	private Musica musica;
+
+public class GameOver extends View {
+
+	private Paint paint;
+
+	public GameOver(Context context) {
+		super(context);
+		paint= new Paint();
+		
+	}
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.gameover);
-		
-		musica= new Musica(R.raw.fourbravechampions, this);
-		musica.play();
-		
-		Button btnRetry = (Button) findViewById(R.id.btnRetry);
-		Button btnVolver = (Button) findViewById(R.id.btnVolver);
-		btnRetry.setOnClickListener(this);
-		btnVolver.setOnClickListener(this);
+	protected void onDraw(Canvas canvas) {
+		super.onDraw(canvas);
+		paint.setColor(0x44000000);
+		canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
+		paint.setColor(Color.BLUE);
+		paint.setTextSize(30);
+		canvas.drawText("GAME OVER", canvas.getWidth() / 3,
+				canvas.getHeight() / 2, paint);
 	}
-
-	@Override
-	public void onClick(View v) {
-		Intent intencion;
-		switch (v.getId()) {
-		case R.id.btnRetry:
-			intencion = new Intent(this, PantallaNivel.class);
-			startActivity(intencion);
-			finish();
-			break;
-		case R.id.btnVolver:
-			intencion = new Intent(this, MainMenu.class);
-			startActivity(intencion);
-			finish();
-			break;
-		default:
-			break;
-		}
-
-	}
-
+	
 }
+	
+	

@@ -2,7 +2,6 @@ package mx.itesm.niveles;
 
 import mx.itesm.audio.Musica;
 import mx.itesm.entradas.Acelerometro;
-import mx.itesm.menus.GameOver;
 import mx.itesm.menus.MainMenu;
 import mx.itesm.menus.R;
 import android.app.Activity;
@@ -30,7 +29,6 @@ public class PantallaNivel extends Activity implements Runnable {
 	private boolean corriendo;
 	private Musica musica;
 	private Acelerometro acelerometro;
-	private boolean gameOver;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +44,11 @@ public class PantallaNivel extends Activity implements Runnable {
 
 		nivel = new Nivel(this);
 		setContentView(nivel);
-
-		gameOver = nivel.getGameOver();
-
+		
 		musica = new Musica(R.raw.darkskies, this);
 		musica.play();
+
+//		reproducirAudio();
 
 	}
 
@@ -72,31 +70,15 @@ public class PantallaNivel extends Activity implements Runnable {
 	public void run() {
 		corriendo = true;
 		while (corriendo) {
-			if (!gameOver) {
-				nivel.actualizar();
-				nivel.postInvalidate();
-				gameOver=nivel.getGameOver();
-				try {
-					Thread.sleep(34);
-				} catch (InterruptedException e) {
-				}
-			} else {
-				onStop();
-				mostrarGameOver();
+			nivel.actualizar();
+			nivel.postInvalidate();
+			try {
+				Thread.sleep(34);
+			} catch (InterruptedException e) {
 			}
+
 		}
-		
-		Intent intencion= new Intent (this, GameOver.class);
-		startActivity(intencion);
-		finish();
 
-	}
-	
-	
-
-	private void mostrarGameOver() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -111,5 +93,16 @@ public class PantallaNivel extends Activity implements Runnable {
 		return true;
 
 	}
+	
+//	private void reproducirAudio() {
+//		if(nivel instanceof Nivel){
+//			musica = new Musica(R.raw.darkskies, this);
+//			musica.play();
+//		}else{
+//			musica = new Musica(R.raw.fourbravechampions, this);
+//			musica.play();
+//		}
+//
+//	}
 
 }
