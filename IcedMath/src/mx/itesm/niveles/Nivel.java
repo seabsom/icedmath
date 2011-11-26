@@ -3,7 +3,7 @@ package mx.itesm.niveles;
 import mx.itesm.menus.R;
 import mx.itesm.personajes.Enemigo;
 import mx.itesm.personajes.Protagonista;
-import mx.itesm.personajes.Sprite;
+//import mx.itesm.personajes.Sprite;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -31,26 +31,21 @@ public class Nivel extends View {
 	private Bitmap fondo;
 	private Enemigo enemigo;
 	private Protagonista oleg;
-	private Bitmap derecha;
-	private Bitmap izquierda;
-	private boolean derIsPressed;
-	private boolean izqIsPressed;
 	private int xd, xp, offset;
-	private Bitmap btnSaltar;
-	private Bitmap btnAtacar;
 	private Bitmap btnPausa;
 	private Bitmap vida;
-	private float yOriginal;
-	private boolean viendoDerecha;
-	private boolean isJumping = false;
+	private int yPersonaje, yOriginal;
+	private boolean estaSaltando = false;
 	private Bitmap plataforma;
-	private Bitmap puerta;
 	private int contadorVida = 3;
 	private boolean invulnerable = false;
 	private int tiempoInvulnerable = 0;
-	private boolean gameOver;
+	private boolean juegoTerminado;
 	private boolean pausa;
 	private int puntaje;
+	private final int ALTURA_MAXIMA = 60;
+	private int saltoRealizado = 0;
+	private boolean estaCayendo;
 
 	/**
 	 * Constructor de la clase Nivel
@@ -62,77 +57,39 @@ public class Nivel extends View {
 		super(contexto);
 		paint = new Paint();
 		fondo = BitmapFactory.decodeResource(getResources(),
-				R.drawable.montanas); // ASê Se deja el fondo fijo, pero se debe
-										// recibir "fondo" y asignarlo a
-										// "this.fondo"
+				R.drawable.montanas);
 		xp = 0;
-		oleg = new Protagonista(contexto, xd, 260);
+		yOriginal = 0;
+
+		oleg = new Protagonista(contexto, xd, yPersonaje);
 		enemigo = new Enemigo(contexto, 250, 200);
-		derecha = BitmapFactory.decodeResource(getResources(),
-				R.drawable.derecha);
-		izquierda = BitmapFactory.decodeResource(getResources(),
-				R.drawable.izquierda);
-		btnSaltar = BitmapFactory.decodeResource(getResources(),
-				R.drawable.saltar);
-		btnAtacar = BitmapFactory.decodeResource(getResources(),
-				R.drawable.atacar);
 		plataforma = BitmapFactory.decodeResource(getResources(),
 				R.drawable.primeraplataforma);
 		vida = BitmapFactory.decodeResource(getResources(), R.drawable.manzana);
-		puerta = BitmapFactory
-				.decodeResource(getResources(), R.drawable.puerta);
 		btnPausa = BitmapFactory.decodeResource(getResources(),
 				R.drawable.pausar);
-
 	}
 
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		calcularXd();
-
-		// Bitmap fondoEscala= Bitmap.createScaledBitmap(fondo,
-		// fondo.getWidth()*(pantallaAncho/fondo.getWidth()),
-		// fondo.getHeight()*(pantallaAlto/fondo.getHeight()), false);
-
-		canvas.drawBitmap(fondo, -offset, 0, paint);
-
-		// Los botones siempre se escalarán de acuerdo a este criterio
-		Bitmap btnAtacarEscala = Bitmap.createScaledBitmap(btnAtacar,
-				canvas.getWidth() / 6, canvas.getWidth() / 6, false);
-		Bitmap btnSaltarEscala = Bitmap.createScaledBitmap(btnSaltar,
-				canvas.getWidth() / 6, canvas.getWidth() / 6, false);
-		Bitmap btnDerechaEscala = Bitmap.createScaledBitmap(derecha,
-				canvas.getWidth() / 6, canvas.getWidth() / 6, false);
-		Bitmap btnIzquierdaEscala = Bitmap.createScaledBitmap(izquierda,
-				canvas.getWidth() / 6, canvas.getWidth() / 6, false);
-		Bitmap btnPausaEscala = Bitmap.createScaledBitmap(btnPausa,
-				canvas.getWidth() / 6, canvas.getWidth() / 6, false);
 		Bitmap plataformaEscala = Bitmap.createScaledBitmap(plataforma,
-				plataforma.getWidth(), btnDerechaEscala.getHeight() + 5, false);
+				fondo.getWidth(), canvas.getHeight() / 4, false);
+		canvas.drawBitmap(fondo, -offset, 0, paint);
 		canvas.drawBitmap(plataformaEscala, -offset, canvas.getHeight()
 				- plataformaEscala.getHeight(), paint);
-		canvas.drawBitmap(btnIzquierdaEscala, 0,
-				(canvas.getHeight() - btnIzquierdaEscala.getHeight()), paint);
-		canvas.drawBitmap(btnPausaEscala,
-				canvas.getWidth() - btnPausaEscala.getWidth(), 0, paint);
-		canvas.drawBitmap(btnDerechaEscala, btnIzquierdaEscala.getWidth(),
-				(canvas.getHeight() - btnDerechaEscala.getHeight()), paint);
-		canvas.drawBitmap(btnSaltarEscala,
-				canvas.getWidth() - btnSaltarEscala.getWidth(),
-				(canvas.getHeight() - btnSaltarEscala.getHeight()), paint);
-		canvas.drawBitmap(btnAtacarEscala, canvas.getWidth()
-				- (2 * (btnAtacarEscala.getWidth())),
-				(canvas.getHeight() - btnDerechaEscala.getHeight()), paint);
-		canvas.drawBitmap(
-				puerta,
-				fondo.getWidth() - puerta.getWidth(),
-				canvas.getHeight() - plataformaEscala.getHeight()
-						- puerta.getHeight(), paint);
+		canvas.drawBitmap(btnPausa, canvas.getWidth() - btnPausa.getWidth(), 0,
+				paint);
+		plataforma = plataformaEscala;
+		plataformaEscala = null;
 
-		enemigo.setY(canvas.getHeight() - plataformaEscala.getHeight()
+		yOriginal = (int) (canvas.getHeight() - plataforma.getHeight() - oleg
+				.getAlto());
+		calcularXd();
+		calcularYPersonaje();
+		
+		enemigo.setY(canvas.getHeight() - plataforma.getHeight()
 				- enemigo.getAlto());
-
 		oleg.dibujar(canvas, paint);
 		enemigo.dibujar(canvas, paint);
 
@@ -143,22 +100,20 @@ public class Nivel extends View {
 			paint.setColor(Color.BLACK);
 			paint.setTextSize(50);
 			canvas.drawText("Pausa", canvas.getWidth() / 3,
-					canvas.getHeight() / 2, paint);
-			canvas.drawBitmap(btnPausaEscala, canvas.getWidth()
-					- btnPausaEscala.getWidth(), 0, paint);
+					canvas.getHeight() / 2, paint);	
 
 		}
 
-		// if (gameOver) {
-		//
-		// paint.setColor(0x44000000);
-		// canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
-		// paint.setColor(Color.BLUE);
-		// paint.setTextSize(30);
-		// canvas.drawText("GAME OVER", canvas.getWidth() / 3,
-		// canvas.getHeight() / 2, paint);
-		//
-		// }
+		if (juegoTerminado) {
+
+			paint.setColor(0x44000000);
+			canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
+			paint.setColor(Color.BLUE);
+			paint.setTextSize(30);
+			canvas.drawText("GAME OVER", canvas.getWidth() / 3,
+					canvas.getHeight() / 2, paint);
+
+		}
 
 		int coordenadaXVida = 0;
 		for (int i = 1; i <= contadorVida; i++) {
@@ -167,12 +122,6 @@ public class Nivel extends View {
 
 		}
 
-		izquierda = btnIzquierdaEscala;
-		derecha = btnDerechaEscala;
-		btnAtacar = btnAtacarEscala;
-		btnSaltar = btnSaltarEscala;
-		btnPausa = btnPausaEscala;
-
 		paint.setColor(Color.WHITE);
 		paint.setTextSize(14);
 		canvas.drawText("Score: " + puntaje, canvas.getWidth(),
@@ -180,10 +129,7 @@ public class Nivel extends View {
 
 	}
 
-	/**
-	 * Método que calcula las posiciones relativas del fondo y del personaje
-	 */
-	public void calcularXd() {
+	private void calcularXd() {
 		int ancho = getWidth();
 		if (xp < ancho / 2) {
 			xd = xp;
@@ -194,8 +140,8 @@ public class Nivel extends View {
 			offset = fondo.getWidth() - ancho;
 
 		} else {
-			xd = ancho / 2;
-			offset = xp - ancho / 2;
+			xd = (int) ((ancho / 2)-(oleg.getAncho()));
+			offset = (int) ((xp - ancho / 2)-(oleg.getAncho()));
 		}
 	}
 
@@ -205,85 +151,47 @@ public class Nivel extends View {
 	 */
 	public void actualizar() {
 
-		if (!pausa && !gameOver)
-
-			enemigo.moverse();
-
-		if (derIsPressed) {
-			viendoDerecha = true;
-			oleg.moverse();
-			xp += 4;
+		if (!pausa || !juegoTerminado) {
+			
+			xp += 3;
 			oleg.setX(xd);
-			if (oleg.getX() >= 790 || oleg.getX() <= 0) { // 790 es #m‡gico; se
-															// debe usar
-															// panatlla.get
-															// width
-				derIsPressed = false;
-			}
-		} else if (izqIsPressed) {
-			viendoDerecha = false;
+			oleg.setY(yPersonaje);
+									
+			enemigo.moverse();			
 			oleg.moverse();
-			xp -= 4;
-			oleg.setX(xd);
-			if (oleg.getX() <= -790 || oleg.getX() <= 0) { // 790 es #m‡gico; se
-															// debe usar
-															// panatlla.get
-															// width
-				izqIsPressed = false;
-			}
-		} else if (isJumping) {
 
-		} else {
-			oleg.pararse();
-		}
-
-		/*
-		 * if (enemigo.getX() >= xd - oleg.getX() && enemigo.getX() <= xd +
-		 * oleg.getWidth()) { enemigo.setX(-400); cvida--; if (enemigo.getY() >=
-		 * oleg.getY() && enemigo.getY() <= oleg.getY() - enemigo.getHeight()) {
-		 * enemigo.setY(-400); cvida--; } }
-		 */
-
-		if (invulnerable) {
-			if (tiempoInvulnerable < 5000) {
-				tiempoInvulnerable += 34;
-			} else {
-				invulnerable = false;
-				tiempoInvulnerable = 0;
-			}
-		}
-
-		if ((250 - 50 <= xd + oleg.getWidth() && // condicion de choque izq
-				xd + oleg.getWidth() < enemigo.getX() || // reconoce si se
-															// encuentra a la
-															// izq
-		250 - 50 < xd + oleg.getWidth() && // reconoce si se encuentra a la der
-				xd < 50 + enemigo.getX() // condicion de choque der
-		)// &&(
-			// enemigo.getY() >= oleg.getY()
-			// )
-		) {
-			if (!invulnerable) {
-				contadorVida--;
-				if (contadorVida == 0) {
-					gameOver = true;
+			if (invulnerable) {
+				if (tiempoInvulnerable < 5000) {
+					tiempoInvulnerable += 34;
+				} else {
+					invulnerable = false;
+					tiempoInvulnerable = 0;
 				}
-				invulnerable = true;
-				
 			}
 
-			/*
-			 * if (enemigo.getY() >= oleg.getY() && enemigo.getY() <=
-			 * oleg.getY() - enemigo.getHeight()) { if (invul) { if (tiempoinv <
-			 * 10000) { tiempoinv += 34; } else { invul = false; tiempoinv = 0;
-			 * }
-			 * 
-			 * } else {
-			 * 
-			 * cvida = cvida - 1; invul = true;
-			 * 
-			 * } }
-			 */
+			if ((250 - 50 <= xd + oleg.getWidth() && // condicion de choque izq
+					xd + oleg.getWidth() < enemigo.getX() || // reconoce si se
+																// encuentra a
+																// la
+																// izq
+			250 - 50 < xd + oleg.getWidth() && // reconoce si se encuentra a la
+												// der
+					xd < 50 + enemigo.getX() // condicion de choque der
+			)// &&(
+				// enemigo.getY() >= oleg.getY()
+				// )
+			) {
+				if (!invulnerable) {
+					contadorVida--;
+					if (contadorVida == 0) {
+						juegoTerminado = true;
+					}
+					invulnerable = true;
+
+				}
+			}
+		} else {
+
 		}
 	}
 
@@ -295,84 +203,87 @@ public class Nivel extends View {
 			if (event.getX() > getWidth() - btnPausa.getWidth()
 					&& event.getY() < btnPausa.getHeight()) {
 				pausa = !pausa;
-				if (gameOver) {
+				if (juegoTerminado) {
 					pausa = false;
 				}
-			}
-			if (!pausa && !gameOver) {
+			} else {
+				if (!pausa && !juegoTerminado) {
+					if (estaSaltando == false) {
+						estaSaltando = true;
 
-				if ((event.getX() > izquierda.getWidth() && event.getX() < 2 * izquierda
-						.getWidth())
-						&& event.getY() > (getHeight() - derecha.getHeight())) {
-					oleg.voltearDer();
-					derIsPressed = true;
-
-				} else if (event.getX() < izquierda.getWidth()
-						&& event.getY() > (getHeight() - izquierda.getHeight())) {
-					oleg.voltearIzq();
-					izqIsPressed = true;
-
-				}
-
-				if (event.getX() > getWidth() - btnSaltar.getWidth()
-						&& event.getY() > getHeight() - btnSaltar.getHeight()) {
-					if (isJumping == false) {
-						isJumping = true;
-						yOriginal = oleg.getY();
-						Thread thr = new Thread(new Runnable() {
-
-							public void run() {
-								if (viendoDerecha == true) {
-									int[] ids = { R.drawable.saltarunoder,
-											R.drawable.saltardosder };
-									oleg.setSprite(new Sprite(getResources(),
-											ids));
-									while (oleg.getY() > yOriginal - 150) {
-										oleg.saltar();
-									}
-									oleg.getSprite().nextFrame();
-									while (oleg.getY() < yOriginal) {
-										oleg.caer();
-									}
-									oleg.pararseDer();
-									isJumping = false;
-
-								} else if (viendoDerecha == false) {
-									int[] ids = { R.drawable.saltaruno,
-											R.drawable.saltardos };
-									oleg.setSprite(new Sprite(getResources(),
-											ids));
-									while (oleg.getY() > yOriginal - 150) {
-										oleg.saltar();
-									}
-									oleg.getSprite().nextFrame();
-									while (oleg.getY() < yOriginal) {
-										oleg.caer();
-									}
-									oleg.pararseIzq();
-									isJumping = false;
-
-								}
-							}
-						});
-						thr.start();
+						// yOriginal = oleg.getY();
+						// Thread thr = new Thread(new Runnable() {
+						//
+						// public void run() {
+						// if (viendoDerecha == true) {
+						// int[] ids = { R.drawable.saltarunoder,
+						// R.drawable.saltardosder };
+						// oleg.setSprite(new Sprite(getResources(),
+						// ids));
+						// while (oleg.getY() > yOriginal - 150) {
+						// oleg.saltar();
+						// }
+						// oleg.getSprite().nextFrame();
+						// while (oleg.getY() < yOriginal) {
+						// oleg.caer();
+						// }
+						// oleg.pararseDer();
+						// isJumping = false;
+						//
+						// } else if (viendoDerecha == false) {
+						// int[] ids = { R.drawable.saltaruno,
+						// R.drawable.saltardos };
+						// oleg.setSprite(new Sprite(getResources(),
+						// ids));
+						// while (oleg.getY() > yOriginal - 150) {
+						// oleg.saltar();
+						// }
+						// oleg.getSprite().nextFrame();
+						// while (oleg.getY() < yOriginal) {
+						// oleg.caer();
+						// }
+						// oleg.pararseIzq();
+						// isJumping = false;
+						//
+						// }
+						// }
+						// });
+						// thr.start();
 					}
 				}
 				break;
 			}
-
-		default:
-			derIsPressed = false;
-			izqIsPressed = false;
-			oleg.pararse();
-			return false;
-
 		}
+
 		return true;
 	}
-	
-	public boolean getGameOver(){
-		return gameOver;
+
+	private void calcularYPersonaje() {
+		if (estaSaltando) {
+			if (saltoRealizado <= ALTURA_MAXIMA) {
+				oleg.saltar();
+				yPersonaje = (int) (oleg.getY() - 10);
+				saltoRealizado += 10;
+			} else {
+				estaCayendo = true;
+				estaSaltando = false;
+			}
+		} else if (estaCayendo) {
+			if (saltoRealizado > 0) {
+				oleg.caer();
+				yPersonaje = (int) (oleg.getY() + 10);
+				saltoRealizado -= 10;
+			} else {
+				estaCayendo = false;
+				estaSaltando = false;				
+			}
+
+		} else {			
+			oleg.voltearDer();
+			yPersonaje = yOriginal;
+		}
 	}
+	
+	
 
 }
