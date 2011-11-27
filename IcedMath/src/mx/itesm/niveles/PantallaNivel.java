@@ -44,16 +44,16 @@ public class PantallaNivel extends Activity implements Runnable {
 
 		nivel = new Nivel(this);
 		setContentView(nivel);
-		
+
 		musica = new Musica(R.raw.darkskies, this);
 		musica.play();
-
-//		reproducirAudio();
 
 	}
 
 	@Override
 	protected void onStop() {
+		acelerometro.desactivar();
+		acelerometro=null;
 		musica.stop();
 		corriendo = false;
 		super.onStop();
@@ -87,22 +87,9 @@ public class PantallaNivel extends Activity implements Runnable {
 			Intent intencion = new Intent(this, MainMenu.class);
 			startActivity(intencion);
 			finish();
-
 		}
-
 		return true;
 
 	}
-	
-//	private void reproducirAudio() {
-//		if(nivel instanceof Nivel){
-//			musica = new Musica(R.raw.darkskies, this);
-//			musica.play();
-//		}else{
-//			musica = new Musica(R.raw.fourbravechampions, this);
-//			musica.play();
-//		}
-//
-//	}
 
 }

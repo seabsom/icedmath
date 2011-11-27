@@ -8,7 +8,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.widget.Toast;
 
-
 /**
  * Esta clase se encarga de obtener información del acelerómetro y realizar una
  * acción al detectar que el dispositivo se agita
@@ -21,7 +20,7 @@ import android.widget.Toast;
  * @version 1.0. 29/10/2011
  * 
  */
-public class Acelerometro extends Activity {
+public class Acelerometro {
 
 	private SensorManager adminSensores;
 
@@ -43,26 +42,31 @@ public class Acelerometro extends Activity {
 
 	// Se ha iniciado un "shake"
 	private boolean inicioShake = false;
-	
-	//Contexto actual
-	private Context contexto;
 
+	// Contexto actual
+	private Context contexto;
+	
+	private boolean estaActivado;
+	
 	// Se inicializa un listener de eventos de sensores
 	private final SensorEventListener listener = new SensorEventListener() {
 
 		public void onSensorChanged(SensorEvent se) {
-			actualizarParametrosAcelerometro(se.values[0], se.values[1],
-					se.values[2]);
-			if ((!inicioShake) && cambioAceleracion()) {
-				// Marca el movimiento inicial de un "shake"
-				inicioShake = true;
-			} else if ((inicioShake) && cambioAceleracion()) {
-				// Marca el movimiento final de un "shake", por lo tanto ejecuta
-				// la accion
-				accionShake();
-			} else if ((inicioShake) && (!cambioAceleracion())) {
-				// Caso en el que se empieza un "shake", pero no se termina
-				inicioShake = false;
+			if (estaActivado) {
+				actualizarParametrosAcelerometro(se.values[0], se.values[1],
+						se.values[2]);
+				if ((!inicioShake) && cambioAceleracion()) {
+					// Marca el movimiento inicial de un "shake"
+					inicioShake = true;
+				} else if ((inicioShake) && cambioAceleracion()) {
+					// Marca el movimiento final de un "shake", por lo tanto ejecuta
+					// la accion
+					accionShake();
+				} else if ((inicioShake) && (!cambioAceleracion())) {
+					// Caso en el que se empieza un "shake", pero no se termina
+					inicioShake = false;
+
+				}
 			}
 		}
 
@@ -73,19 +77,23 @@ public class Acelerometro extends Activity {
 
 	};
 	
+
 	/**
 	 * Constructor de la clase Acelerómetro. Define al administrador de sensores
-	 * @param actividad Define la actividad en la que estará trabajando el acelerómetro.
+	 * 
+	 * @param actividad
+	 *            Define la actividad en la que estará trabajando el
+	 *            acelerómetro.
 	 */
 	public Acelerometro(Activity actividad) {
-		adminSensores = (SensorManager) actividad.getSystemService(Context.SENSOR_SERVICE);
+		adminSensores = (SensorManager) actividad
+				.getSystemService(Context.SENSOR_SERVICE);
 		adminSensores.registerListener(listener,
 				adminSensores.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
 				SensorManager.SENSOR_DELAY_NORMAL);
-		contexto= actividad.getBaseContext();
+		contexto = actividad;
+		estaActivado=true;
 	}
-
-	
 
 	/**
 	 * Método que se encarga de actualizar los datos del acelerómetro en todos
@@ -118,6 +126,7 @@ public class Acelerometro extends Activity {
 
 	/**
 	 * Método que detecta un cambio de aceleración en dos ejes
+	 * 
 	 * @return Si hubo un cambio en dos ejes o no.
 	 */
 	private boolean cambioAceleracion() {
@@ -133,15 +142,18 @@ public class Acelerometro extends Activity {
 	 * Método que realiza una acción cuando un el celular se agita.
 	 */
 	private void accionShake() {
-		Toast.makeText(contexto, "Shake!", Toast.LENGTH_SHORT).show();
+		Toast.makeText(contexto, "Everyday I'm Shufflin", Toast.LENGTH_SHORT).show();
 	}
-	
 
 	/**
 	 * Método que ayuda a calibrar el acelerómetro al momento de ser creado
 	 */
-	public void calibrar(){
+	public void calibrar() {
 		Toast.makeText(contexto, "Calibrando", Toast.LENGTH_SHORT).show();
 	}
 
+	public void desactivar() {
+		estaActivado=false;
+	}
+	
 }
