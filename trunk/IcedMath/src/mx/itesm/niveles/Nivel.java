@@ -102,6 +102,8 @@ public class Nivel extends View {
 		enemigo.dibujar(canvas, paint);
 
 		if (pausa) {
+			
+			
 
 			paint.setColor(0x44000000);
 			canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
@@ -206,8 +208,8 @@ public class Nivel extends View {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		switch (event.getAction()) {
-		case MotionEvent.ACTION_DOWN:
+		
+		if (event.getAction()==MotionEvent.ACTION_DOWN){
 
 			if (event.getX() > getWidth() - btnPausa.getWidth()
 					&& event.getY() < btnPausa.getHeight()) {
@@ -215,14 +217,12 @@ public class Nivel extends View {
 				if (juegoTerminado) {
 					pausa = false;
 				}
-			} else if (event.getX() > getWidth() - btnSaltar.getWidth()
-					&& event.getY() > getHeight() - btnSaltar.getHeight()) {
-				if (!pausa && !juegoTerminado) {
-					if (estaSaltando == false && estaCayendo==false) {
-						estaSaltando = true;						
+			} else {
+			//	if (!pausa && !juegoTerminado) {
+					if (!estaSaltando && !estaCayendo) {
+						estaSaltando = true;
 					}
-				}
-				break;
+			//	}
 			}
 		}
 
