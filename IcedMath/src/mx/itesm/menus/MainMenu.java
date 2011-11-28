@@ -43,8 +43,6 @@ public class MainMenu extends Activity implements OnClickListener {
 		if (player == null) {
 			player = new Musica(R.raw.rageofthechampions, this);
 			player.play();
-		} else {
-			
 		}
 
 		((Button) findViewById(R.id.Aventura)).setOnClickListener(this);
