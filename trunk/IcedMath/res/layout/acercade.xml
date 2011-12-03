@@ -2,14 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="horizontal" android:layout_height="fill_parent"
 	android:layout_width="fill_parent">
+
 	<RelativeLayout android:id="@+id/relativeLayout1"
 		android:layout_height="fill_parent" android:layout_width="fill_parent">
-		<ScrollView android:id="@+id/scrollView1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentTop="true" android:layout_centerHorizontal="true">
-			
-			<TextView android:isScrollContainer="true" android:scrollbarAlwaysDrawVerticalTrack="true" android:text="@string/txtAcercaDe" android:ellipsize="middle" android:layout_width="wrap_content" android:textColor="#FFFFFF" android:id="@+id/textView1" android:layout_height="fill_parent" android:textAppearance="?android:attr/textAppearanceLarge"></TextView>
+
+		<ScrollView android:id="@+id/scrollView1"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_alignParentTop="true" android:layout_centerHorizontal="true">
+
+			<TextView android:isScrollContainer="true"
+				android:scrollbarAlwaysDrawVerticalTrack="true" android:text="@string/txtAcercaDe"
+				android:ellipsize="middle" android:layout_width="wrap_content"
+				android:textColor="#FFFFFF" android:id="@+id/textView1"
+				android:layout_height="fill_parent" android:textAppearance="?android:attr/textAppearanceLarge">
+			</TextView>
+
 		</ScrollView>
-		<ImageView android:src="@drawable/icon" android:id="@+id/imageView2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:layout_alignParentRight="true"></ImageView>
-		
+
+		<ImageView android:src="@drawable/icon" android:id="@+id/imageView2"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_alignParentBottom="true"
+			android:layout_alignParentRight="true">
+		</ImageView>
+
 	</RelativeLayout>
 
 </LinearLayout>
