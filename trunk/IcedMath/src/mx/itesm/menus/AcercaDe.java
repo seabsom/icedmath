@@ -1,7 +1,10 @@
 package mx.itesm.menus;
 
+import mx.itesm.audio.Musica;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -16,6 +19,8 @@ import android.view.WindowManager;
  *
  */
 public class AcercaDe extends Activity {
+	
+	private Musica musica;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +32,26 @@ public class AcercaDe extends Activity {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		setContentView(R.layout.acercade);
+		
+		musica = new Musica(R.raw.spanishflea, this);
+		musica.play();
+	}
+	
+	@Override
+	protected void onStop() {
+		musica.stop();
+		super.onStop();
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			Intent intencion = new Intent(this, MainMenu.class);
+			startActivity(intencion);
+			finish();
+		}
+		return true;
+
 	}
 
 }
