@@ -1,5 +1,6 @@
 package mx.itesm.entradas;
 
+import mx.itesm.niveles.Nivel;
 import android.app.Activity;
 import android.content.Context;
 import android.hardware.Sensor;
@@ -48,6 +49,9 @@ public class Acelerometro {
 	
 	private boolean estaActivado;
 	
+	//Nivel del que obtendrá elementos para realizar las acciones
+	private Nivel nivel;
+	
 	// Se inicializa un listener de eventos de sensores
 	private final SensorEventListener listener = new SensorEventListener() {
 
@@ -85,13 +89,14 @@ public class Acelerometro {
 	 *            Define la actividad en la que estará trabajando el
 	 *            acelerómetro.
 	 */
-	public Acelerometro(Activity actividad) {
+	public Acelerometro(Activity actividad, Nivel nivel) {
 		adminSensores = (SensorManager) actividad
 				.getSystemService(Context.SENSOR_SERVICE);
 		adminSensores.registerListener(listener,
 				adminSensores.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
 				SensorManager.SENSOR_DELAY_NORMAL);
 		contexto = actividad;
+		this.nivel=nivel;
 		estaActivado=true;
 	}
 
@@ -141,7 +146,9 @@ public class Acelerometro {
 	/**
 	 * Método que realiza una acción cuando un el celular se agita.
 	 */
-	private void accionShake() {
+	private void accionShake() {		
+		nivel.getProtagonista().atacar();
+		nivel.setAtacando(true);
 		Toast.makeText(contexto, "Everyday I'm Shufflin", Toast.LENGTH_SHORT).show();
 	}
 

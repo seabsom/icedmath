@@ -34,7 +34,7 @@ public class Musica {
 	/**
 	 * Método que sirve para comenzar a reproducir la música
 	 */
-	public void play() {
+	public void reproducir() {
 		if (player != null) {
 			player.release();
 		}
@@ -46,13 +46,38 @@ public class Musica {
 	/**
 	 * Método que sirve para detener la reproducción de música
 	 */
-	public void stop() {
+	public void detener() {
 		if (player != null) {
 			if (player.isPlaying()) {
 				player.stop();
 				player.release();
 			}
 		}
+	}
+	
+	public void pausar(){
+		if (player != null) {
+			if (player.isPlaying()) {
+				player.pause();				
+			}		
+		}
+	}	
+	
+	public void reanudar(){
+		if (player != null) {
+			if (!player.isPlaying()) {
+				player.start();				
+			}		
+		}
+	}
+	
+	public boolean estaReproduciendo(){
+		if(player!=null){
+			if (player.isPlaying()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

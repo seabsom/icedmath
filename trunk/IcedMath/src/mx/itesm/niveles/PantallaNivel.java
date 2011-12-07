@@ -29,6 +29,8 @@ public class PantallaNivel extends Activity implements Runnable {
 	private boolean corriendo;
 	private Musica musica;
 	private Acelerometro acelerometro;
+	private boolean pausado;
+	private final long VELOCIDAD_THREAD = 34;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,25 +39,25 @@ public class PantallaNivel extends Activity implements Runnable {
 		// Este bloque quita el nombre de la aplicación
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-		acelerometro = new Acelerometro(this);
-		acelerometro.calibrar();
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);		
 
 		nivel = new Nivel(this);
 		setContentView(nivel);
+		
+		acelerometro = new Acelerometro(this, nivel);
+		acelerometro.calibrar();
 
 		musica = new Musica(R.raw.darkskies, this);
-		musica.play();
+		musica.reproducir();
 
 	}
 
 	@Override
 	protected void onStop() {
 		acelerometro.desactivar();
-		acelerometro=null;
-		musica.stop();
+		acelerometro = null;
 		corriendo = false;
+		musica.detener();
 		super.onStop();
 	}
 
@@ -72,11 +74,17 @@ public class PantallaNivel extends Activity implements Runnable {
 		while (corriendo) {
 			nivel.actualizar();
 			nivel.postInvalidate();
+			pausado = nivel.estaPausado();
+			if (pausado) {
+				musica.pausar();
+
+			} else {
+				musica.reanudar();
+			}
 			try {
-				Thread.sleep(34);
+				Thread.sleep(VELOCIDAD_THREAD);
 			} catch (InterruptedException e) {
 			}
-
 		}
 
 	}

@@ -5,22 +5,28 @@ import android.content.Context;
 import mx.itesm.menus.R;
 
 /**
- * Esta clase representa a un protagonista con todos sus atributos. Hereda de la clase "Personaje"
+ * Esta clase representa a un protagonista con todos sus atributos. Hereda de la
+ * clase "Personaje"
+ * 
  * @author Edwin Antonio González Urzua
  * @author Alejandro Segura Gómez
  * @author Alejandro Flores Ibarra
  * @author Guillermo Juárez Durán
  * @author Marlen Aguilar Durán
  * @version 1.0. 06/11/2011
- *
+ * 
  */
 public class Protagonista extends Personaje {
 
 	/**
 	 * Contructor de la clase Protagonista
-	 * @param contexto Indica en que contexto será usado Protagonista
-	 * @param x Indica la x que tendrá Protagonista
-	 * @param y Indica la y que tendrá Protagonista
+	 * 
+	 * @param contexto
+	 *            Indica en que contexto será usado Protagonista
+	 * @param x
+	 *            Indica la x que tendrá Protagonista
+	 * @param y
+	 *            Indica la y que tendrá Protagonista
 	 */
 	public Protagonista(Context contexto, float x, float y) {
 		super(contexto, x, y);
@@ -38,7 +44,7 @@ public class Protagonista extends Personaje {
 	}
 
 	/**
-	 *Método que le dice a Protagonista que debe voltear a la izquierda 
+	 * Método que le dice a Protagonista que debe voltear a la izquierda
 	 */
 	public void voltearIzq() {
 		int[] ids = { R.drawable.normalizq, R.drawable.caminauno,
@@ -53,9 +59,8 @@ public class Protagonista extends Personaje {
 	 * Método que le dice a Protagonista que hacer al indicarle que debe saltar
 	 */
 	public void saltar() {
-		int[] ids = { R.drawable.saltarunoder};
-		super.setSprite(new Sprite(getResources(),
-				ids));
+		int[] ids = { R.drawable.saltarunoder };
+		super.setSprite(new Sprite(getResources(), ids));
 	}
 
 	/**
@@ -63,16 +68,8 @@ public class Protagonista extends Personaje {
 	 */
 	public void caer() {
 
-		int[] ids = { R.drawable.saltardosder};
-		super.setSprite(new Sprite(getResources(),
-				ids));
-	}
-
-	/**
-	 * Método que dice a Protagonista que hacer al tomar un item
-	 */
-	public void tomarItem() {
-
+		int[] ids = { R.drawable.saltardosder };
+		super.setSprite(new Sprite(getResources(), ids));
 	}
 
 	@Override
@@ -88,7 +85,8 @@ public class Protagonista extends Personaje {
 	}
 
 	/**
-	 * Método que le dice al personaje que debe quedarse quieto mirando a la izquierda
+	 * Método que le dice al personaje que debe quedarse quieto mirando a la
+	 * izquierda
 	 */
 	public void pararseIzq() {
 		int[] ids = { R.drawable.normalizq };
@@ -96,11 +94,22 @@ public class Protagonista extends Personaje {
 	}
 
 	/**
-	 * Método que le dice al personaje que debe quedarse quieto mirando a la derecha
+	 * Método que le dice al personaje que debe quedarse quieto mirando a la
+	 * derecha
 	 */
 	public void pararseDer() {
 		int[] ids = { R.drawable.normalder };
 		super.setSprite(new Sprite(getResources(), ids));
 	}
 
+	@Override
+	public void atacar() {
+		int[] ids = { R.drawable.atacar1, R.drawable.atacar2,
+				R.drawable.atacar3, R.drawable.atacar4, R.drawable.atacar5,
+				R.drawable.atacar6, R.drawable.atacar7, R.drawable.atacar8,
+				R.drawable.atacar9, R.drawable.atacar10, R.drawable.atacar11,
+				R.drawable.atacar12, R.drawable.atacar13, R.drawable.atacar14,
+				R.drawable.atacar15, R.drawable.atacar16 };
+		super.setSprite(new Sprite(getResources(), ids));
+	}
 }

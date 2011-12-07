@@ -1,19 +1,14 @@
 package mx.itesm.menus;
 
+import mx.itesm.audio.Musica;
 import android.app.Activity;
-import android.content.Context;
-import android.content.res.TypedArray;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.Gallery;
-import android.widget.ImageView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Toast;
+import android.widget.Button;
 
 /**
  * Esta clase se encarga de mostrar la pantalla "Extras" (opción del menú
@@ -27,13 +22,7 @@ import android.widget.Toast;
  * @version 1.0. 05/10/2011
  * 
  */
-public class Extras extends Activity {
-
-	Integer[] pics = { R.drawable.extra1, R.drawable.extra2, R.drawable.extra3,
-			R.drawable.extra4, R.drawable.extra5, R.drawable.extra6,
-			R.drawable.extra7, R.drawable.extra8, R.drawable.extra9,
-			R.drawable.extra10 };
-	ImageView imageView;
+public class Extras extends Activity implements OnClickListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,67 +35,36 @@ public class Extras extends Activity {
 
 		setContentView(R.layout.extras);
 
-		Gallery ga = (Gallery) findViewById(R.id.Gallery01);
-		ga.setAdapter(new ImageAdapter(this));
+		if (IcedMath.player == null) {
+			IcedMath.player = new Musica(R.raw.rageofthechampions, this);
+			IcedMath.player.reproducir();			
+		}
 
-		imageView = (ImageView) findViewById(R.id.ImageView01);
-		ga.setOnItemClickListener(new OnItemClickListener() {
+		Button btnAudio = (Button) findViewById(R.id.btnAudioExtra);
+		Button btnGaleria = (Button) findViewById(R.id.btnGaleria);
 
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int indice,
-					long arg3) {
-				Toast.makeText(
-						getBaseContext(),
-						"Seleccionaste la imagen " + (indice + 1)
-								+ " de Antartica", Toast.LENGTH_SHORT).show();
-				imageView.setImageResource(pics[indice]);
-
-			}
-
-		});
+		btnAudio.setOnClickListener(this);
+		btnGaleria.setOnClickListener(this);
 
 	}
 
-	public class ImageAdapter extends BaseAdapter {
-
-		private Context ctx;
-		int imageBackground;
-
-		public ImageAdapter(Context c) {
-			ctx = c;
-			TypedArray ta = obtainStyledAttributes(R.styleable.Gallery1);
-			imageBackground = ta.getResourceId(
-					R.styleable.Gallery1_android_galleryItemBackground, 1);
-			ta.recycle();
+	@Override
+	public void onClick(View v) {
+		Intent intencion;
+		switch (v.getId()) {
+		case R.id.btnGaleria:
+			intencion = new Intent(this, Galeria.class);
+			startActivity(intencion);
+			finish();
+			break;
+		case R.id.btnAudioExtra:
+			IcedMath.player.detener();
+			IcedMath.player = null;
+			intencion = new Intent(this, AudioExtra.class);
+			startActivity(intencion);
+			finish();
+			break;
 		}
-
-		@Override
-		public int getCount() {
-			return pics.length;
-		}
-
-		@Override
-		public Object getItem(int position) {
-			return position;
-		}
-
-		@Override
-		public long getItemId(int position) {
-			return position;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			ImageView iv = new ImageView(ctx);
-
-			iv.setImageResource(pics[position]);
-			iv.setScaleType(ImageView.ScaleType.FIT_XY);
-			iv.setLayoutParams(new Gallery.LayoutParams(150, 120));
-			iv.setBackgroundResource(imageBackground);
-
-			return iv;
-		}
-
 	}
 
 }

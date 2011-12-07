@@ -31,7 +31,7 @@ public class Nivel extends View {
 	private Bitmap fondo;
 	private Enemigo enemigo;
 	private Protagonista oleg;
-	private int xd, xp, offset;
+	private int xPersonaje, xRelativaPersonaje, offset;
 	private Bitmap btnPausa;
 	private Bitmap vida;
 	private int yPersonaje, yOriginal;
@@ -47,6 +47,9 @@ public class Nivel extends View {
 	private int saltoRealizado = 0;
 	private boolean estaCayendo;
 	private Bitmap btnSaltar;
+	private boolean primerToquePlataforma;
+	private boolean estaAtacando;
+	private int tiempoAtaque = 0;
 
 	/**
 	 * Constructor de la clase Nivel
@@ -59,10 +62,10 @@ public class Nivel extends View {
 		paint = new Paint();
 		fondo = BitmapFactory.decodeResource(getResources(),
 				R.drawable.montanas);
-		xp = 0;
+		xRelativaPersonaje = 0;
 		yOriginal = 0;
 
-		oleg = new Protagonista(contexto, xd, yPersonaje);
+		oleg = new Protagonista(contexto, xPersonaje, yPersonaje);
 		enemigo = new Enemigo(contexto, 250, 200);
 		plataforma = BitmapFactory.decodeResource(getResources(),
 				R.drawable.primeraplataforma);
@@ -71,8 +74,8 @@ public class Nivel extends View {
 				R.drawable.saltar);
 		btnPausa = BitmapFactory.decodeResource(getResources(),
 				R.drawable.pausar);
-		
-		pausa= false;
+		primerToquePlataforma = false;
+		pausa = false;
 	}
 
 	@Override
@@ -87,30 +90,28 @@ public class Nivel extends View {
 				paint);
 		canvas.drawBitmap(btnSaltar, canvas.getWidth() - btnSaltar.getWidth(),
 				(canvas.getHeight() - btnSaltar.getHeight()), paint);
-		
+
 		plataforma = plataformaEscala;
 		plataformaEscala = null;
 
 		yOriginal = (int) (canvas.getHeight() - plataforma.getHeight() - oleg
 				.getAlto());
-		calcularXd();
+		calcularXPersonaje();
 		calcularYPersonaje();
-		
+
 		enemigo.setY(canvas.getHeight() - plataforma.getHeight()
 				- enemigo.getAlto());
 		oleg.dibujar(canvas, paint);
 		enemigo.dibujar(canvas, paint);
 
 		if (pausa) {
-			
-			
 
 			paint.setColor(0x44000000);
 			canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
 			paint.setColor(Color.BLACK);
 			paint.setTextSize(50);
 			canvas.drawText("Pausa", canvas.getWidth() / 3,
-					canvas.getHeight() / 2, paint);	
+					canvas.getHeight() / 2, paint);
 
 		}
 
@@ -139,19 +140,19 @@ public class Nivel extends View {
 
 	}
 
-	private void calcularXd() {
+	private void calcularXPersonaje() {
 		int ancho = getWidth();
-		if (xp < ancho / 2) {
-			xd = xp;
+		if (xRelativaPersonaje < ancho / 2) {
+			xPersonaje = xRelativaPersonaje;
 			offset = 0;
 
-		} else if (xp > fondo.getWidth() - ancho / 2) {
-			xd = xp - (fondo.getWidth() - ancho);
+		} else if (xRelativaPersonaje > fondo.getWidth() - ancho / 2) {
+			xPersonaje = xRelativaPersonaje - (fondo.getWidth() - ancho);
 			offset = fondo.getWidth() - ancho;
 
 		} else {
-			xd = (ancho / 2);
-			offset = (xp - ancho / 2);
+			xPersonaje = (ancho / 2);
+			offset = (xRelativaPersonaje - ancho / 2);
 		}
 	}
 
@@ -163,35 +164,32 @@ public class Nivel extends View {
 
 		if (!pausa && !juegoTerminado) {
 			oleg.moverse();
-			enemigo.moverse();			
-			
-			xp += 3;
-			oleg.setX(xd-oleg.getAncho());
+			enemigo.moverse();
+
+			xRelativaPersonaje += 3;
+			oleg.setX(xPersonaje - oleg.getAncho());
 			oleg.setY(yPersonaje);
-									
-			
 
 			if (invulnerable) {
 				if (tiempoInvulnerable < 5000) {
 					tiempoInvulnerable += 34;
 				} else {
 					invulnerable = false;
-					tiempoInvulnerable = 0;
+					tiempoInvulnerable = 0;					
+				}
+			}
+			
+			if (estaAtacando) {
+				if (tiempoAtaque < 500) {
+					tiempoAtaque += 34;
+				} else {
+					estaAtacando = false;
+					tiempoAtaque = 0;
+					oleg.voltearDer();
 				}
 			}
 
-			if ((250 - 50 <= xd + oleg.getWidth() && // condicion de choque izq
-					xd + oleg.getWidth() < enemigo.getX() || // reconoce si se
-																// encuentra a
-																// la
-																// izq
-			250 - 50 < xd + oleg.getWidth() && // reconoce si se encuentra a la
-												// der
-					xd < 50 + enemigo.getX() // condicion de choque der
-			)// &&(
-				// enemigo.getY() >= oleg.getY()
-				// )
-			) {
+			if (comprobarChoques()) {
 				if (!invulnerable) {
 					contadorVida--;
 					if (contadorVida == 0) {
@@ -201,15 +199,14 @@ public class Nivel extends View {
 
 				}
 			}
-		} else {
-			
 		}
+
 	}
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		
-		if (event.getAction()==MotionEvent.ACTION_DOWN){
+
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
 			if (event.getX() > getWidth() - btnPausa.getWidth()
 					&& event.getY() < btnPausa.getHeight()) {
@@ -218,11 +215,11 @@ public class Nivel extends View {
 					pausa = false;
 				}
 			} else {
-			//	if (!pausa && !juegoTerminado) {
-					if (!estaSaltando && !estaCayendo) {
-						estaSaltando = true;
-					}
-			//	}
+				// if (!pausa && !juegoTerminado) {
+				if (!estaSaltando && !estaCayendo) {
+					estaSaltando = true;
+				}
+				// }
 			}
 		}
 
@@ -248,15 +245,47 @@ public class Nivel extends View {
 				} else {
 					estaCayendo = false;
 					estaSaltando = false;
+					primerToquePlataforma = true;
 				}
 
 			} else {
-				oleg.voltearDer();
 				yPersonaje = yOriginal;
+				if (primerToquePlataforma) {
+					oleg.voltearDer();
+					primerToquePlataforma = false;
+				}
 			}
 		}
 	}
+
+	public boolean estaPausado() {
+		return pausa;
+	}
+
+	public boolean recienReanudado() {
+		return !pausa;
+	}
+
+	public boolean comprobarChoques() {
+		if ((enemigo.getX() <= xPersonaje
+				&& xPersonaje < enemigo.getX() || enemigo.getX() < xPersonaje
+				&& xPersonaje < enemigo.getX() + enemigo.getAncho())) {
+			if (enemigo.getY() <= yPersonaje + oleg.getAlto()
+					&& yPersonaje < enemigo.getY()
+					|| enemigo.getY() < yPersonaje
+					&& yPersonaje < enemigo.getY() + enemigo.getAlto()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public Protagonista getProtagonista() {
+		return oleg;
+	}
 	
-	
+	public void setAtacando(boolean atacando){
+		estaAtacando= atacando;
+	}
 
 }
