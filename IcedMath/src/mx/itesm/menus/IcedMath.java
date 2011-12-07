@@ -35,7 +35,7 @@ public class IcedMath extends Activity {
 
 		setContentView(R.layout.icedmath);
 		player= new Musica(R.raw.rageofthechampions, this);
-		player.play();
+		player.reproducir();
 
 	}
 

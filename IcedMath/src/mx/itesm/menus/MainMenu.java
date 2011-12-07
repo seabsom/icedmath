@@ -25,8 +25,6 @@ import android.widget.Button;
  */
 public class MainMenu extends Activity implements OnClickListener {
 
-	private Musica player;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,15 +36,13 @@ public class MainMenu extends Activity implements OnClickListener {
 
 		setContentView(R.layout.mainmenu);
 		
-		player = IcedMath.player;
-		
-		if (player == null) {
-			player = new Musica(R.raw.rageofthechampions, this);
-			player.play();
+
+		if (IcedMath.player == null) {
+			IcedMath.player = new Musica(R.raw.rageofthechampions, this);
+			IcedMath.player.reproducir();
 		}
 
 		((Button) findViewById(R.id.Aventura)).setOnClickListener(this);
-		// ((Button) findViewById(R.id.ModoLibre)).setOnClickListener(this);
 		((Button) findViewById(R.id.PuntuacionesAltas))
 				.setOnClickListener(this);
 		((Button) findViewById(R.id.Extras)).setOnClickListener(this);
@@ -58,7 +54,7 @@ public class MainMenu extends Activity implements OnClickListener {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			player.stop();
+			IcedMath.player.detener();
 			finish();
 		}
 		return true;
@@ -69,17 +65,12 @@ public class MainMenu extends Activity implements OnClickListener {
 		Intent intencion;
 		switch (v.getId()) {
 		case R.id.Aventura:
-			player.stop();
+			IcedMath.player.detener();
 			IcedMath.player = null;
 			intencion = new Intent(this, PantallaNivel.class);
 			startActivity(intencion);
 			finish();
 			break;
-		/*
-		 * case R.id.ModoLibre: intencion= new
-		 * Intent(this,PantallaNivelVilla.class); startActivity(intencion);
-		 * break;
-		 */
 		case R.id.PuntuacionesAltas:
 			intencion = new Intent(this, PuntuacionesAltas.class);
 			startActivity(intencion);
@@ -93,7 +84,7 @@ public class MainMenu extends Activity implements OnClickListener {
 			startActivity(intencion);
 			break;
 		case R.id.AcercaDe:
-			player.stop();
+			IcedMath.player.detener();
 			IcedMath.player = null;
 			intencion = new Intent(this, AcercaDe.class);
 			startActivity(intencion);

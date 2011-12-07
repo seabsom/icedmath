@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+    <RelativeLayout android:id="@+id/relativeLayout1" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <ImageView android:src="@drawable/menu" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/imageView1" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"></ImageView>
+        <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_alignParentTop="true" android:layout_toRightOf="@+id/textView3" android:layout_marginLeft="39dp" android:layout_marginTop="16dp" android:text="@string/lblReproducir" android:width="95dp" android:id="@+id/btnReproducirFactory"></Button>
+        <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="@string/lblReproducir" android:width="95dp" android:layout_below="@+id/btnReproducirFactory" android:layout_alignLeft="@+id/btnReproducirFactory" android:id="@+id/btnReproducirSimple"></Button>
+        <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="@string/lblReproducir" android:width="95dp" android:layout_below="@+id/btnReproducirSimple" android:layout_alignLeft="@+id/btnReproducirSimple" android:id="@+id/btnReproducirSpacePirates"></Button>
+        <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="@string/lblReproducir" android:width="95dp" android:layout_below="@+id/btnReproducirSpacePirates" android:layout_alignLeft="@+id/btnReproducirSpacePirates" android:id="@+id/btnReproducirShow"></Button>
+        <TextView android:layout_height="wrap_content" android:text="@string/lblShow" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/textView4" android:layout_alignBaseline="@+id/btnReproducirShow" android:layout_alignBottom="@+id/btnReproducirShow" android:layout_alignParentLeft="true"></TextView>
+        <TextView android:layout_height="wrap_content" android:text="@string/lblFactory" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/textView1" android:layout_alignBaseline="@+id/btnReproducirFactory" android:layout_alignBottom="@+id/btnReproducirFactory" android:layout_alignParentLeft="true"></TextView>
+        <TextView android:layout_height="wrap_content" android:text="@string/lblSimpleSight" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/textView2" android:layout_alignBaseline="@+id/btnReproducirSimple" android:layout_alignBottom="@+id/btnReproducirSimple" android:layout_alignParentLeft="true"></TextView>
+        <TextView android:layout_height="wrap_content" android:text="@string/lblSpacePirates" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/textView3" android:layout_alignBaseline="@+id/btnReproducirSpacePirates" android:layout_alignBottom="@+id/btnReproducirSpacePirates" android:layout_alignParentLeft="true"></TextView>
+    </RelativeLayout>
+    
+</LinearLayout>

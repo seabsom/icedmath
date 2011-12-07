@@ -34,12 +34,12 @@ public class AcercaDe extends Activity {
 		setContentView(R.layout.acercade);
 		
 		musica = new Musica(R.raw.spanishflea, this);
-		musica.play();
+		musica.reproducir();
 	}
 	
 	@Override
 	protected void onStop() {
-		musica.stop();
+		musica.detener();
 		super.onStop();
 	}
 	

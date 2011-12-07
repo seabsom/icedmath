@@ -33,5 +33,6 @@ public class Enemigo extends Personaje {
 	@Override
 	public void moverse() {
 		getSprite().nextFrame();
+		setX(getX()-1);
 	}
 }
