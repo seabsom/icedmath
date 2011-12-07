@@ -115,7 +115,7 @@ public class Galeria extends Activity {
 
 			iv.setImageResource(pics[position]);
 			iv.setScaleType(ImageView.ScaleType.FIT_XY);
-			iv.setLayoutParams(new Gallery.LayoutParams(150, 120));
+			iv.setLayoutParams(new Gallery.LayoutParams(100, 65));
 			iv.setBackgroundResource(imageBackground);
 
 			return iv;

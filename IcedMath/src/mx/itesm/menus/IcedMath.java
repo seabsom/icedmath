@@ -4,6 +4,7 @@ import mx.itesm.audio.Musica;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
@@ -48,6 +49,15 @@ public class IcedMath extends Activity {
 		}
 		return false;
 
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			player.detener();
+			finish();
+		}
+		return true;
 	}
 
 }

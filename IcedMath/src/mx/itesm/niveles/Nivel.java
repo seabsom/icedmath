@@ -67,6 +67,9 @@ public class Nivel extends View {
 
 		oleg = new Protagonista(contexto, xPersonaje, yPersonaje);
 		enemigo = new Enemigo(contexto, 250, 200);
+		
+		
+		
 		plataforma = BitmapFactory.decodeResource(getResources(),
 				R.drawable.primeraplataforma);
 		vida = BitmapFactory.decodeResource(getResources(), R.drawable.manzana);
@@ -88,8 +91,7 @@ public class Nivel extends View {
 				- plataformaEscala.getHeight(), paint);
 		canvas.drawBitmap(btnPausa, canvas.getWidth() - btnPausa.getWidth(), 0,
 				paint);
-		canvas.drawBitmap(btnSaltar, canvas.getWidth() - btnSaltar.getWidth(),
-				(canvas.getHeight() - btnSaltar.getHeight()), paint);
+		
 
 		plataforma = plataformaEscala;
 		plataformaEscala = null;
@@ -166,7 +168,7 @@ public class Nivel extends View {
 			oleg.moverse();
 			enemigo.moverse();
 
-			xRelativaPersonaje += 3;
+			xRelativaPersonaje += 4;
 			oleg.setX(xPersonaje - oleg.getAncho());
 			oleg.setY(yPersonaje);
 
@@ -190,13 +192,18 @@ public class Nivel extends View {
 			}
 
 			if (comprobarChoques()) {
-				if (!invulnerable) {
-					contadorVida--;
-					if (contadorVida == 0) {
-						juegoTerminado = true;
-					}
-					invulnerable = true;
+				
+				if (!estaAtacando) {
+					if (!invulnerable) {
+						contadorVida--;
+						if (contadorVida == 0) {
+							juegoTerminado = true;
+						}
+						invulnerable = true;
 
+					}
+				}else{
+					enemigo.morir();
 				}
 			}
 		}
@@ -231,8 +238,8 @@ public class Nivel extends View {
 			if (estaSaltando) {
 				if (saltoRealizado <= ALTURA_MAXIMA) {
 					oleg.saltar();
-					yPersonaje = (int) (oleg.getY() - 10);
-					saltoRealizado += 10;
+					yPersonaje = (int) (oleg.getY() - 20);
+					saltoRealizado += 20;
 				} else {
 					estaCayendo = true;
 					estaSaltando = false;
@@ -286,6 +293,10 @@ public class Nivel extends View {
 	
 	public void setAtacando(boolean atacando){
 		estaAtacando= atacando;
+	}
+	
+	public boolean getJuegoTerminado(){
+		return juegoTerminado;
 	}
 
 }

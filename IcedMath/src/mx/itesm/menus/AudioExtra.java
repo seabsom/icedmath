@@ -86,8 +86,10 @@ public class AudioExtra extends Activity implements OnClickListener{
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			player.detener();
-			player=null;
+			if (player!=null) {
+				player.detener();
+				player = null;
+			}
 			Intent intencion = new Intent(this, Extras.class);
 			startActivity(intencion);
 			finish();
