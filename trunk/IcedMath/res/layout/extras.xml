@@ -7,8 +7,8 @@
 		<ImageView android:layout_width="wrap_content" android:id="@+id/imageView1"
 			android:src="@drawable/menu" android:layout_height="wrap_content"
 			android:layout_centerVertical="true" android:layout_centerHorizontal="true"></ImageView>
-		<Button android:id="@+id/btnGaleria" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="@string/lblGaleria" android:layout_centerVertical="true" android:layout_alignParentLeft="true" android:layout_marginLeft="78dp" android:width="140dp"></Button>
 		<Button android:id="@+id/btnAudioExtra" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="@string/lblAudioAdicional" android:layout_below="@+id/btnGaleria" android:layout_alignLeft="@+id/btnGaleria" android:width="140dp"></Button>
+		<Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/btnGaleria" android:text="@string/lblGaleria" android:width="140dp" android:layout_centerVertical="true" android:layout_alignParentLeft="true" android:layout_marginLeft="48dp"></Button>
 	</RelativeLayout>
 
 </LinearLayout>

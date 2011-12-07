@@ -33,7 +33,7 @@ public class AcercaDe extends Activity {
 
 		setContentView(R.layout.acercade);
 		
-		musica = new Musica(R.raw.spanishflea, this);
+		musica = new Musica(R.raw.spanish, this);
 		musica.reproducir();
 	}
 	

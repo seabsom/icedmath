@@ -7,7 +7,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.widget.Toast;
 
 /**
  * Esta clase se encarga de obtener información del acelerómetro y realizar una
@@ -39,13 +38,10 @@ public class Acelerometro {
 	private boolean primerShake = true;
 
 	// Se guarda el delta de aceleración que representa un movimiento rápido
-	private final float deltaAceleracionShake = 1.8f;
+	private final float deltaAceleracionShake = 1.5f;
 
 	// Se ha iniciado un "shake"
 	private boolean inicioShake = false;
-
-	// Contexto actual
-	private Context contexto;
 	
 	private boolean estaActivado;
 	
@@ -94,8 +90,7 @@ public class Acelerometro {
 				.getSystemService(Context.SENSOR_SERVICE);
 		adminSensores.registerListener(listener,
 				adminSensores.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-				SensorManager.SENSOR_DELAY_NORMAL);
-		contexto = actividad;
+				SensorManager.SENSOR_DELAY_NORMAL);		
 		this.nivel=nivel;
 		estaActivado=true;
 	}
@@ -148,16 +143,9 @@ public class Acelerometro {
 	 */
 	private void accionShake() {		
 		nivel.getProtagonista().atacar();
-		nivel.setAtacando(true);
-		Toast.makeText(contexto, "Everyday I'm Shufflin", Toast.LENGTH_SHORT).show();
+		nivel.setAtacando(true);		
 	}
-
-	/**
-	 * Método que ayuda a calibrar el acelerómetro al momento de ser creado
-	 */
-	public void calibrar() {
-		Toast.makeText(contexto, "Calibrando", Toast.LENGTH_SHORT).show();
-	}
+	
 
 	public void desactivar() {
 		estaActivado=false;

@@ -31,6 +31,7 @@ public class PantallaNivel extends Activity implements Runnable {
 	private Acelerometro acelerometro;
 	private boolean pausado;
 	private final long VELOCIDAD_THREAD = 34;
+	private boolean juegoTerminado;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +45,7 @@ public class PantallaNivel extends Activity implements Runnable {
 		nivel = new Nivel(this);
 		setContentView(nivel);
 		
-		acelerometro = new Acelerometro(this, nivel);
-		acelerometro.calibrar();
+		acelerometro = new Acelerometro(this, nivel);		
 
 		musica = new Musica(R.raw.darkskies, this);
 		musica.reproducir();
@@ -75,11 +75,16 @@ public class PantallaNivel extends Activity implements Runnable {
 			nivel.actualizar();
 			nivel.postInvalidate();
 			pausado = nivel.estaPausado();
+			juegoTerminado= nivel.getJuegoTerminado();
 			if (pausado) {
 				musica.pausar();
 
 			} else {
 				musica.reanudar();
+			}
+			if(juegoTerminado){
+				musica=null;
+				musica= new Musica(R.raw.fourbravechampions, this);
 			}
 			try {
 				Thread.sleep(VELOCIDAD_THREAD);
