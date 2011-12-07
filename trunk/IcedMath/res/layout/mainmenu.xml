@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="horizontal" android:layout_height="fill_parent"
+	android:layout_width="fill_parent">
+	<RelativeLayout android:id="@+id/relativeLayout1"
+		android:layout_height="fill_parent" android:layout_width="fill_parent">
+		<ImageView android:layout_width="wrap_content" android:id="@+id/imageView1"
+			android:src="@drawable/menu" android:layout_height="wrap_content"
+			android:layout_centerVertical="true" android:layout_centerHorizontal="true"></ImageView>
+		<Button android:id="@+id/PuntuacionesAltas" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="@string/lblPuntuacionesAltas" android:layout_below="@+id/Aventura" android:layout_alignLeft="@+id/Aventura" android:width="140dp"></Button>
+		<Button android:id="@+id/Extras" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="@string/lblExtras" android:layout_below="@+id/PuntuacionesAltas" android:layout_alignLeft="@+id/PuntuacionesAltas" android:width="140dp"></Button>
+		<Button android:id="@+id/Ayuda" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="@string/lblAyuda" android:layout_alignBaseline="@+id/Aventura" android:layout_alignBottom="@+id/Aventura" android:layout_toRightOf="@+id/Aventura" android:width="140dp"></Button>
+		<Button android:id="@+id/AcercaDe" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="@string/lblAcercaDe" android:layout_below="@+id/Ayuda" android:layout_alignLeft="@+id/Ayuda" android:width="140dp"></Button>
+		<Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/Aventura" android:text="@string/lblAventura" android:width="140dp" android:layout_centerVertical="true" android:layout_alignParentLeft="true"></Button>
+	</RelativeLayout>
+
+</LinearLayout>
