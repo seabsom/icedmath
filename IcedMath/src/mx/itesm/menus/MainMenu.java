@@ -93,8 +93,11 @@ public class MainMenu extends Activity implements OnClickListener {
 			startActivity(intencion);
 			break;
 		case R.id.AcercaDe:
+			player.stop();
+			IcedMath.player = null;
 			intencion = new Intent(this, AcercaDe.class);
 			startActivity(intencion);
+			finish();
 			break;
 		default:
 			break;
