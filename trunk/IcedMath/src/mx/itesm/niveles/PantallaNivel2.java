@@ -4,6 +4,7 @@ import mx.itesm.audio.Musica;
 import mx.itesm.entradas.Acelerometro;
 import mx.itesm.menus.GameOver;
 import mx.itesm.menus.MainMenu;
+import mx.itesm.menus.PantallaGanador;
 import mx.itesm.menus.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -106,7 +107,7 @@ public class PantallaNivel2 extends Activity implements Runnable {
 			
 			if(nivelDosTerminado){
 				finish();
-				Intent intencion = new Intent(this, MainMenu.class);
+				Intent intencion = new Intent(this, PantallaGanador.class);
 				startActivity(intencion);
 			}
 
