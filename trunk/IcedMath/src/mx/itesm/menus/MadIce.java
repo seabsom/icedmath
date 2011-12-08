@@ -3,6 +3,7 @@ package mx.itesm.menus;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -34,7 +35,7 @@ public class MadIce extends Activity {
 		setContentView(R.layout.madice);
 
 		// thread para SplashScreen
-		Thread splashTread = new Thread() {
+		Thread splashThread = new Thread() {
 			@Override
 			public void run() {
 				try {
@@ -53,7 +54,14 @@ public class MadIce extends Activity {
 			}
 		};
 
-		splashTread.start();
+		splashThread.start();
 	}
 
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {			
+		}
+		return true;
+	}
+	
 }

@@ -2,6 +2,7 @@ package mx.itesm.niveles;
 
 import mx.itesm.audio.Musica;
 import mx.itesm.entradas.Acelerometro;
+import mx.itesm.menus.GameOver;
 import mx.itesm.menus.MainMenu;
 import mx.itesm.menus.R;
 import android.app.Activity;
@@ -32,6 +33,9 @@ public class PantallaNivel extends Activity implements Runnable {
 	private boolean pausado;
 	private final long VELOCIDAD_THREAD = 34;
 	private boolean juegoTerminado;
+	private boolean regresarMenu;
+	private boolean confirmacionRegreso;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +44,12 @@ public class PantallaNivel extends Activity implements Runnable {
 		// Este bloque quita el nombre de la aplicación
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);		
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		nivel = new Nivel(this);
 		setContentView(nivel);
-		
-		acelerometro = new Acelerometro(this, nivel);		
+
+		acelerometro = new Acelerometro(this, nivel);
 
 		musica = new Musica(R.raw.darkskies, this);
 		musica.reproducir();
@@ -62,8 +66,15 @@ public class PantallaNivel extends Activity implements Runnable {
 	}
 
 	@Override
+	protected void onPause() {
+		corriendo = false;
+		super.onPause();
+	}
+
+	@Override
 	protected void onResume() {
 		super.onResume();
+		corriendo = true;
 		Thread th = new Thread(this);
 		th.start();
 	}
@@ -75,22 +86,39 @@ public class PantallaNivel extends Activity implements Runnable {
 			nivel.actualizar();
 			nivel.postInvalidate();
 			pausado = nivel.estaPausado();
-			juegoTerminado= nivel.getJuegoTerminado();
-			if (pausado) {
+			confirmacionRegreso= nivel.getConfirmacionPausa();
+			juegoTerminado = nivel.getJuegoTerminado();
+			regresarMenu = nivel.getVolverMenu();
+			if (pausado||confirmacionRegreso) {
 				musica.pausar();
 
 			} else {
 				musica.reanudar();
 			}
-			if(juegoTerminado){
-				musica=null;
-				musica= new Musica(R.raw.fourbravechampions, this);
+			if (juegoTerminado) {
+				finish();				
+				Intent intencion = new Intent(this, GameOver.class);
+				startActivity(intencion);
+				
+				
+			}		
+			
+			if (regresarMenu) {
+				finish();
+				Intent intencion = new Intent(this, MainMenu.class);
+				startActivity(intencion);
+				
 			}
+			
 			try {
 				Thread.sleep(VELOCIDAD_THREAD);
 			} catch (InterruptedException e) {
+				
 			}
+			
 		}
+
+		
 
 	}
 

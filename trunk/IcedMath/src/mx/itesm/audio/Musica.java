@@ -79,5 +79,9 @@ public class Musica {
 		}
 		return false;
 	}
+	
+	public int getCancion() {
+		return cancion;
+	}
 
 }

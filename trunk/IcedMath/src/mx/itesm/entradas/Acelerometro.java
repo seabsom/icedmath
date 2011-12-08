@@ -38,7 +38,7 @@ public class Acelerometro {
 	private boolean primerShake = true;
 
 	// Se guarda el delta de aceleración que representa un movimiento rápido
-	private final float deltaAceleracionShake = 1.5f;
+	private final float deltaAceleracionShake = 0.8f;
 
 	// Se ha iniciado un "shake"
 	private boolean inicioShake = false;
@@ -142,8 +142,10 @@ public class Acelerometro {
 	 * Método que realiza una acción cuando un el celular se agita.
 	 */
 	private void accionShake() {		
-		nivel.getProtagonista().atacar();
-		nivel.setAtacando(true);		
+		if (!nivel.estaPausado()) {
+			nivel.getProtagonista().atacar();
+			nivel.setAtacando(true);
+		}		
 	}
 	
 
