@@ -35,6 +35,7 @@ public class PantallaNivel extends Activity implements Runnable {
 	private boolean juegoTerminado;
 	private boolean regresarMenu;
 	private boolean confirmacionRegreso;
+	private boolean nivelUnoTerminado;
 	
 
 	@Override
@@ -86,48 +87,52 @@ public class PantallaNivel extends Activity implements Runnable {
 			nivel.actualizar();
 			nivel.postInvalidate();
 			pausado = nivel.estaPausado();
-			confirmacionRegreso= nivel.getConfirmacionPausa();
+			confirmacionRegreso = nivel.getConfirmacionPausa();
 			juegoTerminado = nivel.getJuegoTerminado();
 			regresarMenu = nivel.getVolverMenu();
-			if (pausado||confirmacionRegreso) {
+			nivelUnoTerminado = nivel.getNivelTerminado();			
+
+			if (pausado || confirmacionRegreso) {
 				musica.pausar();
 
 			} else {
 				musica.reanudar();
 			}
 			if (juegoTerminado) {
-				finish();				
 				Intent intencion = new Intent(this, GameOver.class);
 				startActivity(intencion);
-				
-				
-			}		
-			
-			if (regresarMenu) {
 				finish();
-				Intent intencion = new Intent(this, MainMenu.class);
+
+			}
+
+			if (nivelUnoTerminado) {				
+				Intent intencion = new Intent(this, PantallaNivel2.class);
 				startActivity(intencion);
+				finish();
 				
 			}
 			
+
+			if (regresarMenu) {
+				Intent intencion = new Intent(this, MainMenu.class);
+				startActivity(intencion);
+				finish();
+			}
+
 			try {
 				Thread.sleep(VELOCIDAD_THREAD);
 			} catch (InterruptedException e) {
-				
-			}
-			
-		}
 
-		
+			}
+
+		}
 
 	}
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			Intent intencion = new Intent(this, MainMenu.class);
-			startActivity(intencion);
-			finish();
+			nivel.setPausa(true);
 		}
 		return true;
 

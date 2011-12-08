@@ -1,6 +1,7 @@
 package mx.itesm.entradas;
 
 import mx.itesm.niveles.Nivel;
+import mx.itesm.niveles.Nivel2;
 import android.app.Activity;
 import android.content.Context;
 import android.hardware.Sensor;
@@ -48,6 +49,8 @@ public class Acelerometro {
 	//Nivel del que obtendrá elementos para realizar las acciones
 	private Nivel nivel;
 	
+	private Nivel2 nivel2;
+	
 	// Se inicializa un listener de eventos de sensores
 	private final SensorEventListener listener = new SensorEventListener() {
 
@@ -92,6 +95,18 @@ public class Acelerometro {
 				adminSensores.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
 				SensorManager.SENSOR_DELAY_NORMAL);		
 		this.nivel=nivel;
+		nivel2=null;
+		estaActivado=true;
+	}
+	
+	public Acelerometro(Activity actividad, Nivel2 nivel) {
+		adminSensores = (SensorManager) actividad
+				.getSystemService(Context.SENSOR_SERVICE);
+		adminSensores.registerListener(listener,
+				adminSensores.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+				SensorManager.SENSOR_DELAY_NORMAL);		
+		this.nivel2=nivel;
+		nivel=null;
 		estaActivado=true;
 	}
 
@@ -142,13 +157,23 @@ public class Acelerometro {
 	 * Método que realiza una acción cuando un el celular se agita.
 	 */
 	private void accionShake() {		
-		if (!nivel.estaPausado()) {
-			nivel.getProtagonista().atacar();
-			nivel.setAtacando(true);
-		}		
+		if (nivel2==null) {
+			if (!nivel.estaPausado()) {
+				nivel.getProtagonista().atacar();
+				nivel.setAtacando(true);
+			}
+		}else if(nivel==null){
+			if (!nivel2.estaPausado()) {
+				nivel2.getProtagonista().atacar();
+				nivel2.setAtacando(true);
+			}
+		}
 	}
 	
 
+	/**
+	 * Método que activa o desactiva el reproductor
+	 */
 	public void desactivar() {
 		estaActivado=false;
 	}

@@ -47,7 +47,7 @@ public class Nivel extends View {
 	private int yPersonaje, yOriginal;
 	private boolean estaSaltando = false;
 	private Bitmap plataforma;
-	private int contadorVida = 3;
+	private int contadorVida = 4;
 	private boolean invulnerable = false;
 	private int tiempoInvulnerable = 0;
 	private boolean juegoTerminado;
@@ -65,8 +65,10 @@ public class Nivel extends View {
 	private boolean volverMenu;
 	private final int TAMANO_TEXTO = 20;
 	private Bitmap puerta;
+	private int tiempoNivel;
 	private boolean nivelTerminado;
-
+	private final int TIEMPO_NIVEL=	21500;
+	
 	/**
 	 * Constructor de la clase Nivel
 	 * 
@@ -172,23 +174,12 @@ public class Nivel extends View {
 			canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
 			paint.setColor(Color.WHITE);
 			paint.setTextSize(TAMANO_TEXTO);
-			canvas.drawText("¿Seguro que deseas regresar?", 0, TAMANO_TEXTO,
-					paint);
+			canvas.drawText("¿Seguro que deseas regresar?", 0,
+					2 * TAMANO_TEXTO, paint);
 			canvas.drawText("Si", canvas.getWidth() / 2,
 					canvas.getHeight() / 3, paint);
 			canvas.drawText("No", canvas.getWidth() / 2,
 					2 * canvas.getHeight() / 3, paint);
-
-		}
-		
-		if (nivelTerminado) {
-
-			paint.setColor(0x44000000);
-			canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
-			paint.setColor(Color.WHITE);
-			paint.setTextSize(TAMANO_TEXTO);
-			canvas.drawText("TERMINA NIVEL", 0, TAMANO_TEXTO,
-					paint);
 
 		}
 
@@ -235,6 +226,7 @@ public class Nivel extends View {
 		if (!juegoTerminado && !apareceConfirmacionPausa && !pausa) {
 			puntajeFloat += 0.2;
 			oleg.moverse();
+
 			for (int i = 0; i < listaEnemigos.size(); i++) {
 				listaEnemigos.get(i).moverse();
 			}
@@ -285,6 +277,13 @@ public class Nivel extends View {
 					}
 				}
 			}
+			if (tiempoNivel < TIEMPO_NIVEL) {
+				tiempoNivel += 34;
+			}else{
+				nivelTerminado=true;
+				tiempoNivel=0;
+			}
+
 		}
 
 	}
@@ -423,14 +422,6 @@ public class Nivel extends View {
 
 	}
 
-	public boolean haTerminadoNivel() {
-		if (xPersonaje> fondo.getWidth() - puerta.getWidth()) {
-			return nivelTerminado = true;
-		} else {
-			return nivelTerminado = false;
-		}
-	}
-
 	public Protagonista getProtagonista() {
 		return oleg;
 	}
@@ -455,6 +446,10 @@ public class Nivel extends View {
 
 	public void setPausa(boolean pausa) {
 		this.pausa = pausa;
+	}
+
+	public boolean getNivelTerminado() {
+		return nivelTerminado;
 	}
 
 }
