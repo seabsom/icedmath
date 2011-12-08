@@ -1,33 +1,71 @@
 package mx.itesm.menus;
 
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
+import mx.itesm.audio.Musica;
+import mx.itesm.niveles.PantallaNivel;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 
-public class GameOver extends View {
+public class GameOver extends Activity implements OnClickListener {
+	
+	private Musica player;	
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-	private Paint paint;
-
-	public GameOver(Context context) {
-		super(context);
-		paint= new Paint();
+		setContentView(R.layout.gameover);
 		
+		player= new Musica(R.raw.fourbravechampions, this);
+		player.reproducir();
+		
+
+		Button btnRetry = (Button) findViewById(R.id.btnRetry);
+		Button btnMenu = (Button) findViewById(R.id.btnMenu);
+
+		btnRetry.setOnClickListener(this);
+		btnMenu.setOnClickListener(this);
+	}
+
+	@Override
+	public void onClick(View v) {
+		Intent intencion;
+		switch (v.getId()) {
+		case R.id.btnRetry:
+			player.detener();		
+			intencion= new Intent(this, PantallaNivel.class);
+			startActivity(intencion);
+			finish();
+			break;
+		case R.id.btnMenu:
+			player.detener();
+			intencion= new Intent(this, MainMenu.class);
+			startActivity(intencion);
+			finish();
+			break;
+		default:
+			break;
+		}
+
 	}
 	
 	@Override
-	protected void onDraw(Canvas canvas) {
-		super.onDraw(canvas);
-		paint.setColor(0x44000000);
-		canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
-		paint.setColor(Color.BLUE);
-		paint.setTextSize(30);
-		canvas.drawText("GAME OVER", canvas.getWidth() / 3,
-				canvas.getHeight() / 2, paint);
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode==KeyEvent.KEYCODE_BACK){			
+		}
+		return true;
+		
 	}
-	
+
 }
-	
-	

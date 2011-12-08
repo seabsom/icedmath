@@ -12,5 +12,10 @@ public class Obstaculos extends Personaje {
 		super.setSprite(new Sprite(getResources(), ids));
 		
 	}
+	
+	@Override
+	public void moverse() {
+		setX(getX()-4);		
+	}
 
 }
