@@ -11,6 +11,17 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
+/**
+ * Esta clase se encarga de mostrar la sección "Audio Extra" (subsección de "Extras")
+ * 
+ * @author Edwin Antonio González Urzua
+ * @author Alejandro Segura Gómez
+ * @author Alejandro Flores Ibarra
+ * @author Guillermo Juárez Durán
+ * @author Marlen Aguilar Durán
+ * @version 1.0. 05/11/2011
+ * 
+ */
 public class AudioExtra extends Activity implements OnClickListener{
 	
 	private Musica player;

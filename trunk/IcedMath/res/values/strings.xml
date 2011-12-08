@@ -4,7 +4,7 @@
     <string name="txtPuntuacionesAltas">Puntuaciones Altas\n\nPlayer1          00000\nPlayer2          00000\nPlayer3          00000\nPlayer4          00000\nPlayer5          00000</string>
     <string name="txtExtras">Aqui va la sección de extras. \nConsiste en desbolqueables que se obtienen a traves del juego</string>
     <string name="txtAyuda">Aqui va la seccion de Ayuda. \nInforma sobre controles y Items</string>
-    <string name="txtAcercaDe">Iced Math\n\nDesarrollado por MadIce DevTeam:\n\nAlejandro Segura		A01162752\nMarlen Aguilar			A01163230\nAlejandro Flores		A01167361\nEdwin González			A01167603\nGuillero Juárez			A01168346\n\nAgradecimientos\n\n</string>
+    <string name="txtAcercaDe">Iced Math\n\nDesarrollado por MadIce DevTeam:\n\nAlejandro Segura		A01162752\nMarlen Aguilar			A01163230\nAlejandro Flores		A01167361\nEdwin González			A01167603\nGuillero Juárez			A01168346\n\nCorreo Electrónico\nmadicedevteam@gmail.com\n\nCréditos:\nEl audio ha sido tomado de distintos autores, cuyo contenido está en Newgrounds.com\n\nAgradecimientos:\nProfesor Roberto Martínez Román\nEquipo Meme Games\nEquipo Zarape Games</string>
     <string name="lblAventura">Aventura</string>
     <string name="lblModoLibre">ModoLibre</string>
     <string name="lblPuntuacionesAltas">Puntuaciones Altas</string>

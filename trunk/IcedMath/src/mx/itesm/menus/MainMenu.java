@@ -43,8 +43,6 @@ public class MainMenu extends Activity implements OnClickListener {
 		}
 
 		((Button) findViewById(R.id.Aventura)).setOnClickListener(this);
-		((Button) findViewById(R.id.PuntuacionesAltas))
-				.setOnClickListener(this);
 		((Button) findViewById(R.id.Extras)).setOnClickListener(this);
 		((Button) findViewById(R.id.Ayuda)).setOnClickListener(this);
 		((Button) findViewById(R.id.AcercaDe)).setOnClickListener(this);
@@ -70,11 +68,7 @@ public class MainMenu extends Activity implements OnClickListener {
 			intencion = new Intent(this, PantallaNivel.class);
 			startActivity(intencion);
 			finish();
-			break;
-		case R.id.PuntuacionesAltas:
-			intencion = new Intent(this, PuntuacionesAltas.class);
-			startActivity(intencion);
-			break;
+			break;		
 		case R.id.Extras:
 			intencion = new Intent(this, Extras.class);
 			startActivity(intencion);

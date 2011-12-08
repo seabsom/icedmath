@@ -15,6 +15,10 @@ import android.media.MediaPlayer;
  * @version 1.0. 29/10/2011
  *
  */
+/**
+ * @author Edwin
+ *
+ */
 public class Musica {
 
 	private MediaPlayer player;
@@ -55,6 +59,9 @@ public class Musica {
 		}
 	}
 	
+	/**
+	 * Método que sirve para pausar la canción
+	 */
 	public void pausar(){
 		if (player != null) {
 			if (player.isPlaying()) {
@@ -63,6 +70,9 @@ public class Musica {
 		}
 	}	
 	
+	/**
+	 * Método que sirve para reanudar una canción pausada
+	 */
 	public void reanudar(){
 		if (player != null) {
 			if (!player.isPlaying()) {
@@ -71,6 +81,11 @@ public class Musica {
 		}
 	}
 	
+	
+	/**
+	 * Método que nos dice si el reproductor esta reproduciendo algo
+	 * @return si el reproductor reproduce algo o no
+	 */
 	public boolean estaReproduciendo(){
 		if(player!=null){
 			if (player.isPlaying()) {
@@ -80,6 +95,10 @@ public class Musica {
 		return false;
 	}
 	
+	/**
+	 * Nos dice cual es la canción actual del reproductor
+	 * @return la canción actual
+	 */
 	public int getCancion() {
 		return cancion;
 	}
