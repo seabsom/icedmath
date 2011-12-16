@@ -15,7 +15,7 @@ import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Toast;
+
 
 /**
  * Esta clase se encarga de mostrar la pantalla "Galeria" (opción del menú
@@ -58,11 +58,7 @@ public class Galeria extends Activity {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int indice,
-					long arg3) {
-				Toast.makeText(
-						getBaseContext(),
-						"Seleccionaste la imagen " + (indice + 1)
-								+ " de Antartica", Toast.LENGTH_SHORT).show();
+					long arg3) {				
 				imageView.setImageResource(pics[indice]);
 
 			}
