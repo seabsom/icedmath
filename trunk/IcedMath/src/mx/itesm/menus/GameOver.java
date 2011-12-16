@@ -12,7 +12,16 @@ import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-
+/**
+ * Esta clase se encarga de mostrar la pantalla "Game Over" 
+ * @author Edwin Antonio González Urzua
+ * @author Alejandro Segura Gómez
+ * @author Alejandro Flores Ibarra
+ * @author Guillermo Juárez Durán
+ * @author Marlen Aguilar Durán
+ * @version 1.0. 05/10/2011
+ *
+ */
 public class GameOver extends Activity implements OnClickListener {
 	
 	private Musica player;	
