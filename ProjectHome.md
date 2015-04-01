@@ -1,0 +1,1 @@
+a platform and action game in which a penguin must defeat enemies for obtaining the necessary numbers and mathematical operators to calculate a goal number.
